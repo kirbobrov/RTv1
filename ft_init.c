@@ -35,9 +35,9 @@ void	ft_img_color(t_rt *rt)
         pix = rt->y * rt->mx.sizel + (rt->x * 4);
         if (pix < SIZE_Y * SIZE_X * 4)
         {
-            rt->mx.buf[pix] = rt->cl.blue * 255; ////blue;
-            rt->mx.buf[pix + 1] = rt->cl.green * 255; ///w->f->green;
-            rt->mx.buf[pix + 2] = rt->cl.red * 255; ///w->f->red;
+            rt->mx.buf[pix] = rt->col.blue * 255; ////blue;
+            rt->mx.buf[pix + 1] = rt->col.green * 255; ///w->f->green;
+            rt->mx.buf[pix + 2] = rt->col.red * 255; ///w->f->red;
         }
     }
 }

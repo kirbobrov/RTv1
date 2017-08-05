@@ -15,7 +15,7 @@ void    ft_in(t_rt *rt)
 
 
     rt->sph.pos.x = 400;
-	rt->sph.pos.y = 400;
+	rt->sph.pos.y = 300;
 	rt->sph.pos.z = 200;
 
     rt->sph.radius = 200;
@@ -26,8 +26,9 @@ void    ft_in(t_rt *rt)
 
 
     rt->light.pos.x = 0;
-    rt->light.pos.y = 240;
-    rt->light.pos.z = -100;
+    rt->light.pos.y = 0;
+    rt->light.pos.z = 0;
+
     rt->light.intensity.red = 1;
     rt->light.intensity.green = 1;
     rt->light.intensity.blue = -1;
@@ -45,11 +46,9 @@ int		main(void)
 
     ft_sphere(&r);
 
-
-	///mlx_hook(r.mx.win, 17, 0L, ft_mouse_exit, &r);
 	///mlx_hook(r.mx.win, 2, 5, my_key, &r);
     ft_put_image(r.mx.mlx);
-    mlx_loop_hook(r.mx.mlx, ft_sphere, &r);
+//    mlx_loop_hook(r.mx.mlx, ft_sphere2, &r);
     mlx_hook(r.mx.win, 17, 0L, ft_mouse_exit, &r);
     mlx_loop(r.mx.mlx);
 	return (0);

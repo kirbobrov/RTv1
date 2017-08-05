@@ -33,6 +33,39 @@ float vectorDot(t_vector *v1, t_vector *v2)
 	return (v1->x * v2->x + v1->y * v2->y + v1->z * v2->z);
 }
 
+float       vectorlen(t_vector *v)
+{
+    return(sqrtf((v->x * v->x) + (v->y * v->y) + (v->z * v->z)));
+}
+
+t_vector    vectornorm(t_vector *v)
+{
+    float       len;
+    t_vector    v1;
+
+    len = vectorlen(v);
+    v1.x = v->x / len;
+    v1.y = v->y / len;
+    v1.z = v->z / len;
+    return(v1);
+}
+
+float   sqrt1(float a ,float b ,float c)
+{
+
+}
+
+float   sqrt2(float a ,float b ,float c)
+{
+
+}
+
+int     intersectsphere(t_ray *r, t_sphere *s) ///// write to shadows one more arg
+{
+
+}
+
+
 
 /* Check if the ray and sphere intersect */
 int intersectRaySphere(t_ray *r, t_sphere *s){
@@ -102,8 +135,11 @@ int		ft_sphere(t_rt *rt)
 
 
 	/* Intersect ray/sphere or not */
-    int hit;
+    int         hit;
+    float       fov;
+//    t_vector    nvect;
 
+    fov = 66.0;
     hit = 0;
 
 	/* Position the sphere */
@@ -132,9 +168,23 @@ int		ft_sphere(t_rt *rt)
         rt->x = 0;
 		while (rt->x < SIZE_X)
 		{
-			/* Set the x-coordinate of the start position of the ray */
-			rt->ray.start.x = rt->x;
 
+            float imageAspectRatio = SIZE_X / (float)SIZE_Y; // assuming width > height
+            float px = ((2 * ((rt->x + 0.5) / SIZE_X) - 1) * tan(fov / 2 * M_PI / 180) * imageAspectRatio);
+            float py = (1 - 2 * ((rt->y + 0.5) / SIZE_Y) * tan(fov / 2 * M_PI / 180));
+
+            /* Set the x-coordinate of the start position of the ray */
+			rt->ray.start.x = 0;
+            rt->ray.start.y = 0;
+            rt->ray.start.z = 0;
+
+            rt->ray.dir.x = px;
+            rt->ray.dir.y = py;
+            rt->ray.dir.z = -1;
+
+            rt->ray.dist = 10000;
+
+            rt->ray.dir = vectornorm(&rt->ray.dir);
 			/* Check if the ray intersects with the shpere */
 			hit = intersectRaySphere(&rt->ray, &rt->sph);
 			if(hit == 1)

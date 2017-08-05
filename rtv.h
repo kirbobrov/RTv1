@@ -7,11 +7,12 @@
 # include <stdlib.h>
 # include <time.h>
 # include <math.h>
-# include "mlx.h"
+# include "minilibx/mlx.h"
 # include <stdbool.h>
 # include "libft/libft.h"
-# define SIZE_Y 780
-# define SIZE_X 1024
+# define SIZE_Y 600
+# define SIZE_X 800
+# define M_PI 3.14159265358979323846264338327950288
 
 typedef struct	s_vector
 {
@@ -22,15 +23,17 @@ typedef struct	s_vector
 
 typedef struct	s_sphere
 {
-	t_vector	pos;
+	t_vector	pos;    ///centre
 	float		radius;
     int         material;
 }				t_sphere;
 
 typedef struct	s_ray
 {
-	t_vector	start;
-	t_vector	dir;
+	t_vector	start;  //// start vector
+	t_vector	dir;    /// direction vector
+    t_vector    normdir; /// normalize direction vector
+    float       dist;      ///distantion
 }				t_ray;
 
 typedef struct  s_color ////color definithion
@@ -65,15 +68,15 @@ typedef struct	s_mlx
 
 typedef struct	s_rt
 {
-	t_mlx		mx;
-	t_vector	vec;
-	t_sphere	sph;
-	t_ray		ray;
-    t_color     col;
-    int         x;
-    int         y;
-    t_light     light;
-    t_material  mat;
+	t_mlx		mx;     ///mlx
+	t_vector	vec;    ///vector
+	t_sphere	sph;    ///sphere
+	t_ray		ray;    ///ray
+    t_color     col;    ///color
+    int         x;      /// current x
+    int         y;      /// current y
+    t_light     light;  /// light
+    t_material  mat;    ///material
     ///double      color;
 }				t_rt;
 
