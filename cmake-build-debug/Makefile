@@ -123,6 +123,33 @@ RTv1/fast:
 	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/build
 .PHONY : RTv1/fast
 
+cylinder.o: cylinder.c.o
+
+.PHONY : cylinder.o
+
+# target to build an object file
+cylinder.c.o:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/cylinder.c.o
+.PHONY : cylinder.c.o
+
+cylinder.i: cylinder.c.i
+
+.PHONY : cylinder.i
+
+# target to preprocess a source file
+cylinder.c.i:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/cylinder.c.i
+.PHONY : cylinder.c.i
+
+cylinder.s: cylinder.c.s
+
+.PHONY : cylinder.s
+
+# target to generate assembly for a file
+cylinder.c.s:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/cylinder.c.s
+.PHONY : cylinder.c.s
+
 ft_init.o: ft_init.c.o
 
 .PHONY : ft_init.o
@@ -149,6 +176,33 @@ ft_init.s: ft_init.c.s
 ft_init.c.s:
 	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/ft_init.c.s
 .PHONY : ft_init.c.s
+
+ft_vector.o: ft_vector.c.o
+
+.PHONY : ft_vector.o
+
+# target to build an object file
+ft_vector.c.o:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/ft_vector.c.o
+.PHONY : ft_vector.c.o
+
+ft_vector.i: ft_vector.c.i
+
+.PHONY : ft_vector.i
+
+# target to preprocess a source file
+ft_vector.c.i:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/ft_vector.c.i
+.PHONY : ft_vector.c.i
+
+ft_vector.s: ft_vector.c.s
+
+.PHONY : ft_vector.s
+
+# target to generate assembly for a file
+ft_vector.c.s:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/ft_vector.c.s
+.PHONY : ft_vector.c.s
 
 main.o: main.c.o
 
@@ -177,32 +231,59 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/main.c.s
 .PHONY : main.c.s
 
-rt_sphere1.o: rt_sphere1.c.o
+rt_sphere.o: rt_sphere.c.o
 
-.PHONY : rt_sphere1.o
+.PHONY : rt_sphere.o
 
 # target to build an object file
-rt_sphere1.c.o:
-	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/rt_sphere1.c.o
-.PHONY : rt_sphere1.c.o
+rt_sphere.c.o:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/rt_sphere.c.o
+.PHONY : rt_sphere.c.o
 
-rt_sphere1.i: rt_sphere1.c.i
+rt_sphere.i: rt_sphere.c.i
 
-.PHONY : rt_sphere1.i
+.PHONY : rt_sphere.i
 
 # target to preprocess a source file
-rt_sphere1.c.i:
-	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/rt_sphere1.c.i
-.PHONY : rt_sphere1.c.i
+rt_sphere.c.i:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/rt_sphere.c.i
+.PHONY : rt_sphere.c.i
 
-rt_sphere1.s: rt_sphere1.c.s
+rt_sphere.s: rt_sphere.c.s
 
-.PHONY : rt_sphere1.s
+.PHONY : rt_sphere.s
 
 # target to generate assembly for a file
-rt_sphere1.c.s:
-	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/rt_sphere1.c.s
-.PHONY : rt_sphere1.c.s
+rt_sphere.c.s:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/rt_sphere.c.s
+.PHONY : rt_sphere.c.s
+
+sphere.o: sphere.c.o
+
+.PHONY : sphere.o
+
+# target to build an object file
+sphere.c.o:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/sphere.c.o
+.PHONY : sphere.c.o
+
+sphere.i: sphere.c.i
+
+.PHONY : sphere.i
+
+# target to preprocess a source file
+sphere.c.i:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/sphere.c.i
+.PHONY : sphere.c.i
+
+sphere.s: sphere.c.s
+
+.PHONY : sphere.s
+
+# target to generate assembly for a file
+sphere.c.s:
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/sphere.c.s
+.PHONY : sphere.c.s
 
 # Help Target
 help:
@@ -213,15 +294,24 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... RTv1"
+	@echo "... cylinder.o"
+	@echo "... cylinder.i"
+	@echo "... cylinder.s"
 	@echo "... ft_init.o"
 	@echo "... ft_init.i"
 	@echo "... ft_init.s"
+	@echo "... ft_vector.o"
+	@echo "... ft_vector.i"
+	@echo "... ft_vector.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... rt_sphere1.o"
-	@echo "... rt_sphere1.i"
-	@echo "... rt_sphere1.s"
+	@echo "... rt_sphere.o"
+	@echo "... rt_sphere.i"
+	@echo "... rt_sphere.s"
+	@echo "... sphere.o"
+	@echo "... sphere.i"
+	@echo "... sphere.s"
 .PHONY : help
 
 

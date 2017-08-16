@@ -105,46 +105,123 @@ CMakeFiles/RTv1.dir/ft_init.c.o.provides: CMakeFiles/RTv1.dir/ft_init.c.o.requir
 CMakeFiles/RTv1.dir/ft_init.c.o.provides.build: CMakeFiles/RTv1.dir/ft_init.c.o
 
 
-CMakeFiles/RTv1.dir/rt_sphere1.c.o: CMakeFiles/RTv1.dir/flags.make
-CMakeFiles/RTv1.dir/rt_sphere1.c.o: ../rt_sphere1.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/RTv1.dir/rt_sphere1.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/RTv1.dir/rt_sphere1.c.o   -c /nfs/2016/k/kbobrov/RTv1/rt_sphere1.c
+CMakeFiles/RTv1.dir/rt_sphere.c.o: CMakeFiles/RTv1.dir/flags.make
+CMakeFiles/RTv1.dir/rt_sphere.c.o: ../rt_sphere.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/RTv1.dir/rt_sphere.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/RTv1.dir/rt_sphere.c.o   -c /nfs/2016/k/kbobrov/RTv1/rt_sphere.c
 
-CMakeFiles/RTv1.dir/rt_sphere1.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/RTv1.dir/rt_sphere1.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/k/kbobrov/RTv1/rt_sphere1.c > CMakeFiles/RTv1.dir/rt_sphere1.c.i
+CMakeFiles/RTv1.dir/rt_sphere.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/RTv1.dir/rt_sphere.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/k/kbobrov/RTv1/rt_sphere.c > CMakeFiles/RTv1.dir/rt_sphere.c.i
 
-CMakeFiles/RTv1.dir/rt_sphere1.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/RTv1.dir/rt_sphere1.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/k/kbobrov/RTv1/rt_sphere1.c -o CMakeFiles/RTv1.dir/rt_sphere1.c.s
+CMakeFiles/RTv1.dir/rt_sphere.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/RTv1.dir/rt_sphere.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/k/kbobrov/RTv1/rt_sphere.c -o CMakeFiles/RTv1.dir/rt_sphere.c.s
 
-CMakeFiles/RTv1.dir/rt_sphere1.c.o.requires:
+CMakeFiles/RTv1.dir/rt_sphere.c.o.requires:
 
-.PHONY : CMakeFiles/RTv1.dir/rt_sphere1.c.o.requires
+.PHONY : CMakeFiles/RTv1.dir/rt_sphere.c.o.requires
 
-CMakeFiles/RTv1.dir/rt_sphere1.c.o.provides: CMakeFiles/RTv1.dir/rt_sphere1.c.o.requires
-	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/rt_sphere1.c.o.provides.build
-.PHONY : CMakeFiles/RTv1.dir/rt_sphere1.c.o.provides
+CMakeFiles/RTv1.dir/rt_sphere.c.o.provides: CMakeFiles/RTv1.dir/rt_sphere.c.o.requires
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/rt_sphere.c.o.provides.build
+.PHONY : CMakeFiles/RTv1.dir/rt_sphere.c.o.provides
 
-CMakeFiles/RTv1.dir/rt_sphere1.c.o.provides.build: CMakeFiles/RTv1.dir/rt_sphere1.c.o
+CMakeFiles/RTv1.dir/rt_sphere.c.o.provides.build: CMakeFiles/RTv1.dir/rt_sphere.c.o
+
+
+CMakeFiles/RTv1.dir/ft_vector.c.o: CMakeFiles/RTv1.dir/flags.make
+CMakeFiles/RTv1.dir/ft_vector.c.o: ../ft_vector.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/RTv1.dir/ft_vector.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/RTv1.dir/ft_vector.c.o   -c /nfs/2016/k/kbobrov/RTv1/ft_vector.c
+
+CMakeFiles/RTv1.dir/ft_vector.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/RTv1.dir/ft_vector.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/k/kbobrov/RTv1/ft_vector.c > CMakeFiles/RTv1.dir/ft_vector.c.i
+
+CMakeFiles/RTv1.dir/ft_vector.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/RTv1.dir/ft_vector.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/k/kbobrov/RTv1/ft_vector.c -o CMakeFiles/RTv1.dir/ft_vector.c.s
+
+CMakeFiles/RTv1.dir/ft_vector.c.o.requires:
+
+.PHONY : CMakeFiles/RTv1.dir/ft_vector.c.o.requires
+
+CMakeFiles/RTv1.dir/ft_vector.c.o.provides: CMakeFiles/RTv1.dir/ft_vector.c.o.requires
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/ft_vector.c.o.provides.build
+.PHONY : CMakeFiles/RTv1.dir/ft_vector.c.o.provides
+
+CMakeFiles/RTv1.dir/ft_vector.c.o.provides.build: CMakeFiles/RTv1.dir/ft_vector.c.o
+
+
+CMakeFiles/RTv1.dir/cylinder.c.o: CMakeFiles/RTv1.dir/flags.make
+CMakeFiles/RTv1.dir/cylinder.c.o: ../cylinder.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/RTv1.dir/cylinder.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/RTv1.dir/cylinder.c.o   -c /nfs/2016/k/kbobrov/RTv1/cylinder.c
+
+CMakeFiles/RTv1.dir/cylinder.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/RTv1.dir/cylinder.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/k/kbobrov/RTv1/cylinder.c > CMakeFiles/RTv1.dir/cylinder.c.i
+
+CMakeFiles/RTv1.dir/cylinder.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/RTv1.dir/cylinder.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/k/kbobrov/RTv1/cylinder.c -o CMakeFiles/RTv1.dir/cylinder.c.s
+
+CMakeFiles/RTv1.dir/cylinder.c.o.requires:
+
+.PHONY : CMakeFiles/RTv1.dir/cylinder.c.o.requires
+
+CMakeFiles/RTv1.dir/cylinder.c.o.provides: CMakeFiles/RTv1.dir/cylinder.c.o.requires
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/cylinder.c.o.provides.build
+.PHONY : CMakeFiles/RTv1.dir/cylinder.c.o.provides
+
+CMakeFiles/RTv1.dir/cylinder.c.o.provides.build: CMakeFiles/RTv1.dir/cylinder.c.o
+
+
+CMakeFiles/RTv1.dir/sphere.c.o: CMakeFiles/RTv1.dir/flags.make
+CMakeFiles/RTv1.dir/sphere.c.o: ../sphere.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/RTv1.dir/sphere.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/RTv1.dir/sphere.c.o   -c /nfs/2016/k/kbobrov/RTv1/sphere.c
+
+CMakeFiles/RTv1.dir/sphere.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/RTv1.dir/sphere.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/k/kbobrov/RTv1/sphere.c > CMakeFiles/RTv1.dir/sphere.c.i
+
+CMakeFiles/RTv1.dir/sphere.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/RTv1.dir/sphere.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/k/kbobrov/RTv1/sphere.c -o CMakeFiles/RTv1.dir/sphere.c.s
+
+CMakeFiles/RTv1.dir/sphere.c.o.requires:
+
+.PHONY : CMakeFiles/RTv1.dir/sphere.c.o.requires
+
+CMakeFiles/RTv1.dir/sphere.c.o.provides: CMakeFiles/RTv1.dir/sphere.c.o.requires
+	$(MAKE) -f CMakeFiles/RTv1.dir/build.make CMakeFiles/RTv1.dir/sphere.c.o.provides.build
+.PHONY : CMakeFiles/RTv1.dir/sphere.c.o.provides
+
+CMakeFiles/RTv1.dir/sphere.c.o.provides.build: CMakeFiles/RTv1.dir/sphere.c.o
 
 
 # Object files for target RTv1
 RTv1_OBJECTS = \
 "CMakeFiles/RTv1.dir/main.c.o" \
 "CMakeFiles/RTv1.dir/ft_init.c.o" \
-"CMakeFiles/RTv1.dir/rt_sphere1.c.o"
+"CMakeFiles/RTv1.dir/rt_sphere.c.o" \
+"CMakeFiles/RTv1.dir/ft_vector.c.o" \
+"CMakeFiles/RTv1.dir/cylinder.c.o" \
+"CMakeFiles/RTv1.dir/sphere.c.o"
 
 # External object files for target RTv1
 RTv1_EXTERNAL_OBJECTS =
 
 RTv1: CMakeFiles/RTv1.dir/main.c.o
 RTv1: CMakeFiles/RTv1.dir/ft_init.c.o
-RTv1: CMakeFiles/RTv1.dir/rt_sphere1.c.o
+RTv1: CMakeFiles/RTv1.dir/rt_sphere.c.o
+RTv1: CMakeFiles/RTv1.dir/ft_vector.c.o
+RTv1: CMakeFiles/RTv1.dir/cylinder.c.o
+RTv1: CMakeFiles/RTv1.dir/sphere.c.o
 RTv1: CMakeFiles/RTv1.dir/build.make
-RTv1: ../libft/libft.a
 RTv1: CMakeFiles/RTv1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable RTv1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable RTv1"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RTv1.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -154,7 +231,10 @@ CMakeFiles/RTv1.dir/build: RTv1
 
 CMakeFiles/RTv1.dir/requires: CMakeFiles/RTv1.dir/main.c.o.requires
 CMakeFiles/RTv1.dir/requires: CMakeFiles/RTv1.dir/ft_init.c.o.requires
-CMakeFiles/RTv1.dir/requires: CMakeFiles/RTv1.dir/rt_sphere1.c.o.requires
+CMakeFiles/RTv1.dir/requires: CMakeFiles/RTv1.dir/rt_sphere.c.o.requires
+CMakeFiles/RTv1.dir/requires: CMakeFiles/RTv1.dir/ft_vector.c.o.requires
+CMakeFiles/RTv1.dir/requires: CMakeFiles/RTv1.dir/cylinder.c.o.requires
+CMakeFiles/RTv1.dir/requires: CMakeFiles/RTv1.dir/sphere.c.o.requires
 
 .PHONY : CMakeFiles/RTv1.dir/requires
 

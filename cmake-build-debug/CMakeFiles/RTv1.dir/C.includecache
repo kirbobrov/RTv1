@@ -6,7 +6,15 @@
 
 #IncludeRegexTransform: 
 
+/nfs/2016/k/kbobrov/RTv1/cylinder.c
+rtv1.h
+/nfs/2016/k/kbobrov/RTv1/rtv1.h
+
 /nfs/2016/k/kbobrov/RTv1/ft_init.c
+rtv.h
+/nfs/2016/k/kbobrov/RTv1/rtv.h
+
+/nfs/2016/k/kbobrov/RTv1/ft_vector.c
 rtv.h
 /nfs/2016/k/kbobrov/RTv1/rtv.h
 
@@ -28,7 +36,9 @@ sys/uio.h
 rtv.h
 /nfs/2016/k/kbobrov/RTv1/rtv.h
 
-/nfs/2016/k/kbobrov/RTv1/rt_sphere1.c
+/nfs/2016/k/kbobrov/RTv1/minilibx/mlx.h
+
+/nfs/2016/k/kbobrov/RTv1/rt_sphere.c
 rtv.h
 /nfs/2016/k/kbobrov/RTv1/rtv.h
 
@@ -43,10 +53,14 @@ time.h
 -
 math.h
 -
-mlx.h
-/nfs/2016/k/kbobrov/RTv1/mlx.h
+minilibx/mlx.h
+/nfs/2016/k/kbobrov/RTv1/minilibx/mlx.h
 stdbool.h
 -
 libft/libft.h
 /nfs/2016/k/kbobrov/RTv1/libft/libft.h
+
+/nfs/2016/k/kbobrov/RTv1/sphere.c
+rtv1.h
+/nfs/2016/k/kbobrov/RTv1/rtv1.h
 

@@ -1,7 +1,14 @@
-//
-// Created by Kyrylo Bobrov on 04.07.17.
-//
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_init.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbobrov <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/12 18:11:18 by kbobrov           #+#    #+#             */
+/*   Updated: 2017/08/12 18:11:23 by kbobrov          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rtv.h"
 
@@ -26,18 +33,19 @@ void	ft_imageinit(t_mlx *mx)
 	mx->buf = mlx_get_data_addr(mx->img, &mx->bpp, &mx->sizel, &mx->endl);
 }
 
-void	ft_img_color(t_rt *rt)
+void	ft_img_color(t_rt *rt, int x, int y)
 {
     int pix;
 
-    if (rt->y >= 0 && rt->x >= 0 && rt->y < SIZE_Y && rt->x < SIZE_X)
+    if (y >= 0 && x >= 0 && y < SIZE_Y && x < SIZE_X)
     {
-        pix = rt->y * rt->mx.sizel + (rt->x * 4);
+        pix = y * rt->mx.sizel + (x * 4);
         if (pix < SIZE_Y * SIZE_X * 4)
         {
-            rt->mx.buf[pix] = rt->col.blue * 255; ////blue;
-            rt->mx.buf[pix + 1] = rt->col.green * 255; ///w->f->green;
-            rt->mx.buf[pix + 2] = rt->col.red * 255; ///w->f->red;
+            rt->mx.buf[pix] = rt->col.blue; ////blue;
+            rt->mx.buf[pix + 1] = rt->col.green; ///w->f->green;
+            rt->mx.buf[pix + 2] = rt->col.red; ///w->f->red;
+//            rt->mx.buf[pix + 3] = rt->col.a;
         }
     }
 }

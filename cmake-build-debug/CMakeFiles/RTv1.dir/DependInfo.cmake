@@ -4,9 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/nfs/2016/k/kbobrov/RTv1/cylinder.c" "/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles/RTv1.dir/cylinder.c.o"
   "/nfs/2016/k/kbobrov/RTv1/ft_init.c" "/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles/RTv1.dir/ft_init.c.o"
+  "/nfs/2016/k/kbobrov/RTv1/ft_vector.c" "/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles/RTv1.dir/ft_vector.c.o"
   "/nfs/2016/k/kbobrov/RTv1/main.c" "/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles/RTv1.dir/main.c.o"
-  "/nfs/2016/k/kbobrov/RTv1/rt_sphere1.c" "/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles/RTv1.dir/rt_sphere1.c.o"
+  "/nfs/2016/k/kbobrov/RTv1/rt_sphere.c" "/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles/RTv1.dir/rt_sphere.c.o"
+  "/nfs/2016/k/kbobrov/RTv1/sphere.c" "/nfs/2016/k/kbobrov/RTv1/cmake-build-debug/CMakeFiles/RTv1.dir/sphere.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

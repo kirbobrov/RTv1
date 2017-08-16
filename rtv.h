@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rtv.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbobrov <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/12 18:13:05 by kbobrov           #+#    #+#             */
+/*   Updated: 2017/08/12 18:13:08 by kbobrov          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef RTV_H
 # define RTV_H
@@ -33,6 +44,8 @@ typedef struct	s_ray
 	t_vector	start;  //// start vector
 	t_vector	dir;    /// direction vector
     t_vector    normdir; /// normalize direction vector
+    t_vector    hit_point;
+    t_vector    normal;
     float       dist;      ///distantion
 }				t_ray;
 
@@ -40,7 +53,8 @@ typedef struct  s_color ////color definithion
 {
     float      red;
     float      green;
-    float      blue;
+    float       blue;
+    float       a;
 }               t_color;
 
 typedef struct  s_light /// light defenition
@@ -84,6 +98,18 @@ void	ft_imageinit(t_mlx *mx);
 void	ft_mlxinit(t_mlx *mx);
 void	ft_put_image(t_mlx *mx);
 int		ft_sphere(t_rt *rt);
-void	ft_img_color(t_rt *rt);
+void	ft_img_color(t_rt *rt, int x, int y);
+t_vector vector_sub(t_vector *v1, t_vector *v2);
+t_vector vector_add(t_vector *v1, t_vector *v2);
+float vector_dot(t_vector *v1, t_vector *v2);
+t_vector vector_scale(float t, t_vector *v);
+float       vector_len(t_vector *v);
+t_vector    vector_normalize(t_vector *v);
+float   vector_coss(t_vector *v1, t_vector *v2);
+
+
+
+
+
 
 #endif
