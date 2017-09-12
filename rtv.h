@@ -32,12 +32,29 @@ typedef struct	s_vector
 	float		z;
 }				t_vector;
 
+typedef struct  s_color ////color definithion
+{
+    float      red;
+    float      green;
+    float       blue;
+    float       a;
+}               t_color;
+
 typedef struct	s_sphere
 {
 	t_vector	pos;    ///centre
 	float		radius;
     int         material;
+    t_color     scolor;
+
 }				t_sphere;
+
+typedef struct  s_cylinder
+{
+    t_vector	pos;    ///centre
+    float		radius;
+    int         material;
+}               t_cylinder;
 
 typedef struct	s_ray
 {
@@ -48,14 +65,6 @@ typedef struct	s_ray
     t_vector    normal;
     float       dist;      ///distantion
 }				t_ray;
-
-typedef struct  s_color ////color definithion
-{
-    float      red;
-    float      green;
-    float       blue;
-    float       a;
-}               t_color;
 
 typedef struct  s_light /// light defenition
 {
@@ -84,13 +93,21 @@ typedef struct	s_rt
 {
 	t_mlx		mx;     ///mlx
 	t_vector	vec;    ///vector
-	t_sphere	sph;    ///sphere
+	t_sphere	sph[3];    ///sphere
+    t_sphere    *spointer;
 	t_ray		ray;    ///ray
     t_color     col;    ///color
     int         x;      /// current x
     int         y;      /// current y
     t_light     light;  /// light
-    t_material  mat;    ///material
+    t_material  mat[3];    ///material
+
+    t_cylinder  cyl;
+
+
+
+    t_material  *mpointer;
+    int         i;
     ///double      color;
 }				t_rt;
 
@@ -106,6 +123,7 @@ t_vector vector_scale(float t, t_vector *v);
 float       vector_len(t_vector *v);
 t_vector    vector_normalize(t_vector *v);
 float   vector_coss(t_vector *v1, t_vector *v2);
+void    sphere_color(t_rt *rt, t_material *mat);
 
 
 

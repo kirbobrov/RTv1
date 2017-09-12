@@ -38,7 +38,7 @@ float   ft_sqrtp(float a ,float b ,float c)
         return (0);
 }
 
-int ft_intersect_sphere(t_ray *r, t_sphere *s) ///// write to shadows one more arg
+int ft_intersect_sphere(t_ray *r, t_sphere *s, t_rt *rt) ///// write to shadows one more arg
 {
     float   A;
     float   B;
@@ -87,14 +87,11 @@ int		ft_sphere(t_rt *rt)
     int     y;
     int     x;
     float   coss;
+    int     i;
 
     rt->ray.start.x = 0;
     rt->ray.start.y = 0;
     rt->ray.start.z = -800;
-
-//    rt->col.red = 255.0;
-//    rt->col.green = 255.0;
-//    rt->col.blue = 0.0;
 
     yc = SIZE_Y / 2;
     xc = SIZE_X / 2;
@@ -104,7 +101,9 @@ int		ft_sphere(t_rt *rt)
         x = -xc;
         while (x < xc)
         {
-//            float   coef = 1.0;
+//            hit = 0;
+            i = 0;
+//           float   coef = 1.0;
             rt->ray.dir.x = x - rt->ray.start.x;
             rt->ray.dir.y = y - rt->ray.start.y;
             rt->ray.dir.z = 0 - rt->ray.start.z;
@@ -112,18 +111,31 @@ int		ft_sphere(t_rt *rt)
 
             rt->ray.dist = 200000;
             /* Check if the ray intersects with the shpere */
-            hit = ft_intersect_sphere(&rt->ray, &rt->sph);    /// ray hit with sphere
 
+//            sphere_color(&rt, &rt->sph[1]);
+            while (i < 3)
+            {
+                if (ft_intersect_sphere(&rt->ray, &rt->sph[i], rt))
+                {
+                    t_vector scaled;
+
+                    scaled = vector_scale(rt->ray.dist, &rt->ray.dir);
+
+                    rt->ray.hit_point = vector_add(&rt->ray.start, &scaled);
+                    rt->ray.normal = vector_sub(&rt->ray.hit_point, &rt->sph[i].pos); //// find normale
+                    rt->ray.normal = vector_normalize(&rt->ray.normal);
+
+                    sphere_color(rt, &rt->mat[i]);
+
+                    hit = 1;
+                }
+                    //hit = 1;
+                i++;
+            }
+//            hit = ft_intersect_sphere(&rt->ray, &rt->sph[0], rt); /// ray hit with sphere
+//            hit = ft_intersect_sphere(&rt->ray, &rt->sph[1], rt);
             if (hit == 1) {
-                t_vector scaled;
-
-                scaled = vector_scale(rt->ray.dist, &rt->ray.dir);
-
-                rt->ray.hit_point = vector_add(&rt->ray.start, &scaled);
-                rt->ray.normal = vector_sub(&rt->ray.hit_point, &rt->sph.pos); //// find normale
-                rt->ray.normal = vector_normalize(&rt->ray.normal);
-
-                t_vector dist; /// distantion
+               t_vector dist; /// distantion
 
                 dist = vector_sub(&rt->light.pos, &rt->ray.hit_point);
 //             if((vectorDot(&rt->ray.normal, &dist) > 0.0f))
@@ -147,7 +159,7 @@ int		ft_sphere(t_rt *rt)
                 (lambert < 0) ? lambert = 0 : 0;
                 int hit2;
 
-                hit2 = ft_intersect_sphere(&lightRay, &rt->sph); /// ray
+                hit2 = ft_intersect_sphere(&lightRay, &rt->sph[i], rt); /// ray
                 /// printf("hit2 === %d\t\n", hit2);
                 //printf("hit == %d\n", hit);
 //            printf("rt->col.blue == %f\t rt->col.green == %f\trt->col.red == %f\n", rt->col.blue, rt->col.green, rt->col.red);
@@ -155,9 +167,13 @@ int		ft_sphere(t_rt *rt)
                 if (hit2 == 0)
                 {
 //                 rt->col.a = lambert * rt->light.intensity.a * rt->light.intensity.a * 255;
-                   rt->col.red = lambert * rt->light.intensity.red * rt->light.intensity.red * 255;
-                   rt->col.green = lambert * rt->light.intensity.green * rt->mat.diffuse.green * 255;
-                   rt->col.blue = lambert * rt->light.intensity.blue * rt->mat.diffuse.blue * 255;
+//                   rt->col.red = lambert * rt->light.intensity.red * rt->mat[i].diffuse.red * 255;
+//                   rt->col.green = lambert * rt->light.intensity.green * rt->mat[i].diffuse.green * 255;
+//                   rt->col.blue = lambert * rt->light.intensity.blue * rt->mat[i].diffuse.blue * 255;
+
+                    rt->col.red = lambert * rt->col.red;
+                    rt->col.green = lambert * rt->col.green;
+                    rt->col.blue = lambert * rt->col.blue;
 
 //                    rt->ray.dir = vector_normalize(&rt->ray.dir);
                     coss = vector_coss(&rt->ray.normal, &lightRay.dir);
@@ -182,13 +198,6 @@ int		ft_sphere(t_rt *rt)
                     rt->col.red = 0.1;
                     printf(" HELLO \n"); //// shadow
                 }
-//                coef *= rt->mat.reflection;
-
-//                rt->ray.start = rt->ray.hit_point;
-//                float   reflect = 2.0f * vector_dot(&rt->ray.dir, &dist);
-//                t_vector    tmp = vector_scale(reflect, &dist);
-//                rt->ray.dir = vector_sub(&rt->ray.dir, &tmp);
-
             }
             else
             {
