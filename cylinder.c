@@ -22,8 +22,7 @@
 /// (V)^2 - vector_dot_product
 
 
-/*
-int find_abc_cylinder(t_ray *r, t_cylinder *c)
+int find_abc_cylinder(t_ray *r, t_cylinder *c, t_rt *rt)
 {
     float   A;
     float   B;
@@ -41,10 +40,10 @@ int find_abc_cylinder(t_ray *r, t_cylinder *c)
     v1 = vector_sub(&r->dir, &mult); //// (V - (V, Va)Va)
     A = vector_dot(&v1, &v1);
 
-    delta_p = vector_sub(&r->start, c);
+    delta_p = vector_sub(&r->start, &c->pos);
     dot2 = vector_dot(&delta_p, &c->pos);
     mult = vector_scale(dot2, &c->pos);
-    v2 = vector_sub(&delta_p, &mult;
+    v2 = vector_sub(&delta_p, &mult);
     B = vector_dot(&v1, &v2);
     B *= 2;
 
@@ -77,8 +76,47 @@ float discr;
     }
     return (0);
 }
-*/
 
+/*t_vector        cyl_abc(t_ray *ray, t_cylinder *cyl, t_vector *dist)
+{
+    t_vector    abc;
+
+    abc.x = vector_dot(&ray->dir, &ray->dir)
+            - pow(vector_dot(&ray->dir, &cyl->pos), 2);
+    abc.y = 2 * (vector_dot(&ray->dir, dist)
+                 - (vector_dot(&ray->dir, &cyl->pos) * vector_dot(dist, &cyl->pos)));
+    abc.z = vector_dot(dist, dist) - pow(vector_dot(dist, &cyl->pos), 2)
+            - pow(cyl->radius, 2);
+    return (abc);
+}
+
+int                intersect_cylinder(t_ray *ray, t_cylinder *cyl, double d)
+{
+    t_vector    dist;
+    t_vector    abc;
+
+    t_vector    t;
+    double        discr;
+    int            ret;
+
+    ret = 0;
+    dist = vector_sub(&cyl->pos, &ray->start);
+    cyl->pos = vector_normalize(&(cyl->pos);
+    abc = cyl_abc(ray, (cyl, &dist);
+    discr = abc.y * abc.y - 4 * abc.x * abc.z;
+    if (discr < 0)
+        return (ret);
+    t.x = (abc.y - sqrt(discr)) / (2 * abc.x);
+    t.y = (abc.y + sqrt(discr)) / (2 * abc.x);
+    (t.x > 0.001) && (t.x < ray ->dist) ? ret = 1 : 0;
+    (t.x > 0.001) && (t.x < ray ->dist) ? ray ->dist = t.x : 0;
+    (t.y > 0.001) && (t.y < ray ->dist) ? ret = 1 : 0;
+    (t.y > 0.001) && (t.y < ray ->dist) ? ray ->dist = t.y : 0;
+    ray ->dist -= 0.01;
+    if (ray ->dist > d)
+        return (0);
+    return (ret);
+}*/
 
 ////write all formuls for find intersection of cylinder but not to be tested.
 
@@ -140,7 +178,7 @@ void	find_abc_for_cylynder(t_ray *r, t_cylinder *cyl, t_mod *mod)
 	mod->c = vector_dot(&sub2, &sub2) - cyl->sq_radius;
 }
 
-/*
+
 ** Check if the ray and cylinder intersect
 */
 /*

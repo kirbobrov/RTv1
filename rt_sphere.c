@@ -79,6 +79,31 @@ unsigned long createRGB(int r, int g, int b)
     return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
+
+
+void    sphere_normal()
+{
+
+}
+
+
+
+t_vector        normal_cylinder(t_ray *ray, t_cylinder *cyl)
+{
+    t_vector    norm;
+    t_vector    c;
+    float       temp;
+
+    norm = vector_sub(&ray->start, &cyl->pos);
+    temp = vector_dot(&norm, &cyl->pos);
+    c = vector_scale(temp, &cyl->pos);
+    norm = vector_sub(&norm, &c);
+    norm = vector_normalize(&norm);
+    return (norm);
+}
+
+
+
 int		ft_sphere(t_rt *rt)
 {
     int         hit;
