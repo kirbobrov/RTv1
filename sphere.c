@@ -1,71 +1,53 @@
 //
 // Created by Kyrylo Bobrov on 8/14/17.
 //
-/*
-#include "rtv1.h"
 
-/*
-** Find the normal for this new vector at the point of intersection
-*/
-/*
-void	find_normal_sphere(t_mod *mod, t_sphere *ball)
+#include "rtv.h"
+
+void    normale_sphere(t_rt *rt, int i)
 {
-	t_vector scaled;
+    t_vector scaled;
 
-	scaled = vector_scale(mod->t, &mod->r.dir);
-	mod->new_start = vector_add(&mod->r.start, &scaled);
-	mod->n = vector_sub(&mod->new_start, &ball->pos);
-	mod->n = vector_normalize(&mod->n);
+    scaled = vector_scale(rt->ray.dist, &rt->ray.dir);
+
+    rt->ray.hit_point = vector_add(&rt->ray.start, &scaled);
+    rt->ray.normal = vector_sub(&rt->ray.hit_point, &rt->sph[i].pos); //// find normale
+    rt->ray.normal = vector_normalize(&rt->ray.normal);
 }
 
-/*
-** Check if the ray and sphere intersect
-** A = d * d, the vector dot product of the direction:
-** a = vectorDot(r->dir, r->dir);
-** We need a vector representing the distance between the start of
-** the ray and the position of the circle.
-** This is the term (p0 - c)
-** dist = vector_sub(r->start, s->pos);
-** 2d * (p0 - c)
-** b = 2 * vectorDot(r->dir, dist);
-** (p0 - c) * (p0 - c) - r^2
-** c = vector_dot(dist, dist) - (s->radius * s->radius);
-** Solving the discriminant
-** discr = b * b - 4 * a * c;
-** If the discriminant is negative, there are no real roots.
-** Return false in that case as the ray misses the sphere.
-** Return true in all other cases (can be one or two intersections)
-** t represents the distance between the start of the ray and
-** the point on the sphere where it intersects.
-*/
-/*
-int		intersect_sphere(t_ray *r, t_sphere *s, t_mod *mod)
+
+int ft_intersect_sphere(t_ray *r, t_sphere *s, t_rt *rt) ///// write to shadows one more arg
 {
-	double discr;
-	double sqrtdiscr;
-	double t;
+    float   A;
+    float   B;
+    float   C;
+    float   discr;
+    t_vector    dist;
 
-	mod->a = vector_dot(&r->dir, &r->dir);
-	mod->dist = vector_sub(&r->start, &s->pos);
-	mod->b = 2 * vector_dot(&r->dir, &mod->dist);
-	mod->c = vector_dot(&mod->dist, &mod->dist) - s->sq_radius;
-	discr = mod->b * mod->b - 4 * mod->a * mod->c;
-	if (discr < 0)
-		return (0);
-	sqrtdiscr = sqrt(discr);
-	mod->t0 = (-mod->b + sqrtdiscr) / 2;
-	mod->t1 = (-mod->b - sqrtdiscr) / 2;
-	t = min_distance(mod);
-	if (t < mod->t && t > 0.00001)
-	{
-		mod->t = t;
-		if (mod->light == 0)
-			mod->cur_color = s->diffuse;
-		mod->intersection++;
-		mod->shadow = 1;
-		return (1);
-	}
-	return (0);
+    A = vector_dot(&r->dir, &r->dir);
+    dist = vector_sub(&r->start, &s->pos);
+    B = 2 * vector_dot(&r->dir, &dist);
+    C = vector_dot(&dist, &dist) - (s->radius * s->radius);
+
+    discr = B * B - 4 * A * C;
+
+    if (discr < 0)
+        return (0);
+
+    float x1 = (-B + sqrtf(discr)) / (2 * A);
+    float x2 = (-B - sqrtf(discr)) / (2 * A);
+
+    if (x1 < 0)
+        x1 = 100000000;
+    if (x2 < 0)
+        x2 = 100000000;
+    if (x1 > x2)
+        x1 = x2;
+
+    if (x1 > 0.0001 && x1 < r->dist)
+    {
+        r->dist = x1;
+        return (1);
+    }
+    return (0);
 }
-
-*/

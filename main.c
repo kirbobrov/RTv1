@@ -62,10 +62,17 @@ void    ft_initialize(t_rt *rt)
     rt->sph[1].pos.z = -100;
     rt->sph[1].radius = 120;
 
-    rt->cyl.pos.x = -100;
-    rt->cyl.pos.y = -100;
-    rt->cyl.pos.z = -100;
-    rt->cyl.radius = 200; ///// experimental cylinder. needed to be tested
+    rt->cyl.pos.x = 0;
+    rt->cyl.pos.y = 0;
+    rt->cyl.pos.z = 0;
+    rt->cyl.radius = 300;
+
+    rt->cyl.dir.x = 1;
+    rt->cyl.dir.y = 0;
+    rt->cyl.dir.z = 0;
+
+    rt->cyl.dir = vector_normalize(&rt->cyl.dir);
+    ///// experimental cylinder. needed to be tested
 
 
     rt->mat[2].diffuse.red = 0.3;

@@ -21,6 +21,80 @@
 /// pa - point of cylinder
 /// (V)^2 - vector_dot_product
 
+t_vector        cyl_abc(t_ray *ray, t_cylinder *cyl, t_vector *dist)
+{
+    t_vector    abc;
+
+    abc.x = vector_dot(&ray->dir, &cyl->dir)
+            - powf(vector_dot(&ray->dir, &cyl->dir), 2);
+    abc.y = 2 * (vector_dot(&ray->dir, dist)
+                 - (vector_dot(&ray->dir, &cyl->dir) * vector_dot(dist, &cyl->dir)));
+    abc.z = (vector_dot(dist, dist) - powf(vector_dot(dist, &cyl->pos), 2)
+                     - powf(cyl->radius, 2));
+    return (abc);
+}
+
+int     intersect_cylinder(t_ray *ray, t_cylinder *cyl)///, float d)
+{
+    t_vector    dist;
+    t_vector    abc;
+
+    t_vector    t;
+    float      discr;
+    int         ret;
+
+    ret = 0;
+    dist = vector_sub(&ray->dir, &ray->start);
+    cyl->pos = vector_normalize(&cyl->pos);
+    abc = cyl_abc(ray, cyl, &dist);
+    discr = abc.y * abc.y - 4 * abc.x * abc.z;
+    if (discr < 0)
+        return (ret);
+
+    t.x = (abc.y - sqrtf(discr)) / (2 * abc.x);
+    t.y = (abc.y + sqrtf(discr)) / (2 * abc.x);
+
+    (t.x > 0.001) && (t.x < ray ->dist) ? ret = 1 : 0;
+    (t.x > 0.001) && (t.x < ray ->dist) ? ray ->dist = t.x : 0;
+    (t.y > 0.001) && (t.y < ray ->dist) ? ret = 1 : 0;
+    (t.y > 0.001) && (t.y < ray ->dist) ? ray ->dist = t.y : 0;
+    ray ->dist -= 0.01;
+//    if (ray ->dist > d)
+//        return (0);
+    return (ret);
+
+
+//    if (t.x < 0)
+//        t.x = 100000000;
+//    if (t.y < 0)
+//        t.y = 100000000;
+//    if (t.x > t.y)
+//        t.x = t.y;
+//
+//    if (t.x > 0.0001 && t.x < ray->dist)
+//    {
+//        ray->dist = t.x;
+//        return (1);
+//    }
+//    return (0);
+}
+
+
+//void	normale_cylinder(t_rt *rt, t_cylinder *cyl)
+//{
+//    t_vector scaled;
+//    t_vector b;
+//    t_vector a;
+//    t_vector rv;
+//
+//    scaled = vector_scale(mod->t, &rt->ray.dir);
+//    mod->new_start = vector_add(&rt->ray.start, &scaled);
+//    b = vector_sub(&mod->new_start, &cyl->r.start);
+//    a = vector_scale(vector_dot(&b, &cyl->r.dir), &cyl->r.dir);
+//    rv = vector_sub(&b, &a);
+//    mod->n = vector_normalize(&rv);
+//}
+
 
 int find_abc_cylinder(t_ray *r, t_cylinder *c, t_rt *rt)
 {
@@ -35,14 +109,14 @@ int find_abc_cylinder(t_ray *r, t_cylinder *c, t_rt *rt)
     t_vector    v1;
     t_vector    v2;
 
-    dot = vector_dot(&r->dir, &c->pos);
-    mult = vector_scale(dot, &c->pos);
+    dot = vector_dot(&r->dir, &c->dir);
+    mult = vector_scale(dot, &c->dir);
     v1 = vector_sub(&r->dir, &mult); //// (V - (V, Va)Va)
     A = vector_dot(&v1, &v1);
 
     delta_p = vector_sub(&r->start, &c->pos);
-    dot2 = vector_dot(&delta_p, &c->pos);
-    mult = vector_scale(dot2, &c->pos);
+    dot2 = vector_dot(&delta_p, &c->dir);
+    mult = vector_scale(dot2, &c->dir);
     v2 = vector_sub(&delta_p, &mult);
     B = vector_dot(&v1, &v2);
     B *= 2;
@@ -88,74 +162,6 @@ float discr;
     abc.z = vector_dot(dist, dist) - pow(vector_dot(dist, &cyl->pos), 2)
             - pow(cyl->radius, 2);
     return (abc);
-}
-
-int                intersect_cylinder(t_ray *ray, t_cylinder *cyl, double d)
-{
-    t_vector    dist;
-    t_vector    abc;
-
-    t_vector    t;
-    double        discr;
-    int            ret;
-
-    ret = 0;
-    dist = vector_sub(&cyl->pos, &ray->start);
-    cyl->pos = vector_normalize(&(cyl->pos);
-    abc = cyl_abc(ray, (cyl, &dist);
-    discr = abc.y * abc.y - 4 * abc.x * abc.z;
-    if (discr < 0)
-        return (ret);
-    t.x = (abc.y - sqrt(discr)) / (2 * abc.x);
-    t.y = (abc.y + sqrt(discr)) / (2 * abc.x);
-    (t.x > 0.001) && (t.x < ray ->dist) ? ret = 1 : 0;
-    (t.x > 0.001) && (t.x < ray ->dist) ? ray ->dist = t.x : 0;
-    (t.y > 0.001) && (t.y < ray ->dist) ? ret = 1 : 0;
-    (t.y > 0.001) && (t.y < ray ->dist) ? ray ->dist = t.y : 0;
-    ray ->dist -= 0.01;
-    if (ray ->dist > d)
-        return (0);
-    return (ret);
-}*/
-
-////write all formuls for find intersection of cylinder but not to be tested.
-
-
-//
-//void	find_abc_for_cylynder(t_ray *r, t_cylinder *cyl, t_mod *mod)
-//{
-//    double		dot;
-//    t_vector	mult;
-//    t_vector	sub1;
-//    t_vector	sub2;
-//    t_vector	delta_p;
-//
-//    dot = vector_dot(&r->dir, &cyl->r.dir);
-//    mult = vector_scale(dot, &cyl->r.dir);
-//    sub1 = vector_sub(&r->dir, &mult);
-//    delta_p = vector_sub(&r->start, &cyl->r.start);
-//    dot = vector_dot(&delta_p, &cyl->r.dir);
-//    mult = vector_scale(dot, &cyl->r.dir);
-//    sub2 = vector_sub(&delta_p, &mult);
-//    mod->a = vector_dot(&sub1, &sub1);
-//    mod->b = 2 * vector_dot(&sub1, &sub2);
-//    mod->c = vector_dot(&sub2, &sub2) - cyl->sq_radius;
-//}
-
- /*
-void	find_normal_cylinder(t_mod *mod, t_cylinder *cyl)
-{
-	t_vector scaled;
-	t_vector b;
-	t_vector a;
-	t_vector rv;
-
-	scaled = vector_scale(mod->t, &mod->r.dir);
-	mod->new_start = vector_add(&mod->r.start, &scaled);
-	b = vector_sub(&mod->new_start, &cyl->r.start);
-	a = vector_scale(vector_dot(&b, &cyl->r.dir), &cyl->r.dir);
-	rv = vector_sub(&b, &a);
-	mod->n = vector_normalize(&rv);
 }
 
 void	find_abc_for_cylynder(t_ray *r, t_cylinder *cyl, t_mod *mod)
@@ -209,3 +215,52 @@ int		intersect_cylinder(t_ray *r, t_cylinder *cyl, t_mod *mod)
 }
 
 */
+/*
+typedef struct    s_cylinder
+{
+    t_vect        pos;
+    t_vect        dir;
+    double        r;
+}                t_cylinder;
+
+
+int        intersection_cylinder(t_ray *r, void *c, double *t) /// kzahreba
+{
+    t_cylinder    *cyl;
+    t_vector        tmp[2];
+    t_vector        delta;
+    t_equation    n;
+    int res;
+
+    cyl = (t_cylinder *)c;
+    tmp[0] = vector_mult(vector_dot_product(&r->dir, &cyl->dir), &cyl->dir);
+    tmp[0] = vector_substract(&r->dir, &tmp[0]);
+    n.a = vector_dot_product(&tmp[0], &tmp[0]);
+    delta = vector_substract(&r->origin, &cyl->pos);
+    tmp[1] = vector_mult(vector_dot_product(&delta, &cyl->dir), &cyl->dir);
+    tmp[1] = vector_substract(&delta, &tmp[1]);
+    n.b = 2 * vector_dot_product(&tmp[0], &tmp[1]);
+    n.c = vector_dot_product(&tmp[1], &tmp[1]) - pow(cyl->r, 2);
+    if ((res = quadratic_equation(&n)))
+        return(check_solving(t, select_value(n.root, res)));
+    return (0);
+}
+
+
+
+int        quadratic_equation(t_equation *n) //// kzahreba
+{
+    n->root[0] = -1;
+    n->root[1] = -1;
+    n->discr = n->b * n->b - 4.0 * n->a * n->c;
+    if (n->discr < 0)
+        return (0);
+    n->sqdiscr = sqrt(n->discr);
+    if (n->discr >= 0)
+    {
+        n->root[0] = (-n->b + n->sqdiscr) / (2.0 * n->a);
+        n->root[1] = (-n->b - n->sqdiscr) / (2.0 * n->a);
+        return (2);
+    }
+    return (0);
+}*/
