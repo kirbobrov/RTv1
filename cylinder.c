@@ -20,7 +20,7 @@
 /// p = point of camera
 /// pa - point of cylinder
 /// (V)^2 - vector_dot_product
-
+/*
 t_vector        cyl_abc(t_ray *ray, t_cylinder *cyl, t_vector *dist)
 {
     t_vector    abc;
@@ -77,23 +77,10 @@ int     intersect_cylinder(t_ray *ray, t_cylinder *cyl)///, float d)
 //        return (1);
 //    }
 //    return (0);
-}
+} */
 
 
-//void	normale_cylinder(t_rt *rt, t_cylinder *cyl)
-//{
-//    t_vector scaled;
-//    t_vector b;
-//    t_vector a;
-//    t_vector rv;
-//
-//    scaled = vector_scale(mod->t, &rt->ray.dir);
-//    mod->new_start = vector_add(&rt->ray.start, &scaled);
-//    b = vector_sub(&mod->new_start, &cyl->r.start);
-//    a = vector_scale(vector_dot(&b, &cyl->r.dir), &cyl->r.dir);
-//    rv = vector_sub(&b, &a);
-//    mod->n = vector_normalize(&rv);
-//}
+
 
 
 int find_abc_cylinder(t_ray *r, t_cylinder *c, t_rt *rt)
@@ -142,14 +129,56 @@ float discr;
         x2 = 100000000;
     if (x1 > x2)
         x1 = x2;
-
     if (x1 > 0.0001 && x1 < r->dist)
     {
         r->dist = x1;
+
         return (1);
     }
     return (0);
 }
+
+
+t_vector        normale_cylinder(t_ray *ray, t_cylinder *cyl)
+{
+    t_vector    normale;
+    t_vector    temp;
+    t_vector    scale_cent;
+
+
+    cyl->hit_point = vector_scale(ray->dist, &ray->dir);
+    cyl->hit_point = vector_add(&cyl->hit_point, &ray->start);
+    temp = vector_sub(&cyl->hit_point, &cyl->pos);
+    scale_cent = vector_scale(vector_dot(&temp, &cyl->dir), &cyl->dir);
+    normale = vector_sub(&temp, &scale_cent);
+
+    return (vector_normalize(&normale));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*t_vector        cyl_abc(t_ray *ray, t_cylinder *cyl, t_vector *dist)
 {

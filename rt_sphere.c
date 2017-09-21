@@ -45,21 +45,27 @@ unsigned long createRGB(int r, int g, int b)
     return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
-
-
-t_vector        normale_cylinder(t_ray *ray, t_cylinder *cyl)
-{
-    t_vector    norm;
-    t_vector    c;
-    float       temp;
-
-    norm = vector_sub(&ray->start, &cyl->pos);
-    temp = vector_dot(&norm, &cyl->pos);
-    c = vector_scale(temp, &cyl->pos);
-    norm = vector_sub(&norm, &c);
-    norm = vector_normalize(&norm);
-    return (norm);
-}
+//t_vector        normale_cylinder(t_ray *ray, t_cylinder *cyl)
+//{
+//    t_vector    normale;
+//    t_vector    temp;
+//    t_vector    scale_cent;
+//
+//
+//    cyl->hit_point = vector_scale(ray->dist, &ray->dir);
+//    cyl->hit_point = vector_add(&cyl->hit_point, &ray->start);
+//    temp = vector_sub(&cyl->hit_point, &cyl->pos);
+//
+//
+//
+//
+//    scale_cent = vector_scale(vector_dot(&temp, &cyl->dir), &cyl->dir);
+//
+//
+//    normale = vector_sub(&temp, &scale_cent);
+//
+//    return (vector_normalize(&normale));
+//}
 
 
 
@@ -96,25 +102,21 @@ int		ft_sphere(t_rt *rt)
             rt->ray.dist = 200000;
             /* Check if the ray intersects with the figure */
 ///            sphere_color(&rt, &rt->sph[1]);
-          while (i < 3)
-         {
+  ////        while (i < 3)
+   ////      {
             ///if(intersect_cylinder(&rt->ray, &rt->cyl))
           ///  printf("intersect with cylinder %d\n", find_abc_cylinder(&rt->ray, &rt->cyl, rt));
 
-               if (ft_intersect_sphere(&rt->ray, &rt->sph[i], rt)) //// find normale
-                   /// if (find_abc_cylinder(&rt->ray, &rt->cyl, rt))
+              //// if (ft_intersect_sphere(&rt->ray, &rt->sph[1], rt)) //// find normale
+            if (find_abc_cylinder(&rt->ray, &rt->cyl, rt))
                     {
-                   /// printf("1\n");
-                     normale_sphere(rt, i);
 
-                  ////  normale_cylinder(&rt->ray, &rt->cyl);
-
-                    sphere_color(rt, &rt->mat[i]); /// &rt->mat[i]
-
+                  // /  normale_sphere(rt, 1);
+                    rt->ray.normal = normale_cylinder(&rt->ray, &rt->cyl);
+                    sphere_color(rt, &rt->mat[0]); /// &rt->mat[i]
                     hit = 1;
-                }
-                    //hit = 1;
-                i++;
+              ////  }
+              ////  i++;
            }
             if (hit == 1)
             {
@@ -145,6 +147,10 @@ int		ft_sphere(t_rt *rt)
                /// hit2 = intersect_cylinder(&lightRay, &rt->cyl);
                 hit2 = ft_intersect_sphere(&lightRay, &rt->sph[i], rt); /// ray
                 /// printf("hit2 === %d\t\n", hit2);
+
+//                rt->col.red = lambert * rt->col.red;
+//                rt->col.green = lambert * rt->col.green;
+//                rt->col.blue = lambert * rt->col.blue;
 
 
                if (hit2 == 0)
@@ -199,10 +205,6 @@ int		ft_sphere(t_rt *rt)
             tmp = vector_scale(reflect, &dist);
             rt->ray.dir = ft_vectorsub(&rt->ray.dir, &tmp);*/
 
-
-           /* if(hit != 0)
-                printf("rt->col.blue == %f\t rt->col.green == %f\trt->col.red == %f\n", rt->col.blue, rt->col.green, rt->col.red);
-*/
                 ft_img_color(rt, x + xc, y + yc);
             x++;
         }

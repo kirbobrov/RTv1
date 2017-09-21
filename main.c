@@ -63,13 +63,13 @@ void    ft_initialize(t_rt *rt)
     rt->sph[1].radius = 120;
 
     rt->cyl.pos.x = 0;
-    rt->cyl.pos.y = 0;
+    rt->cyl.pos.y = 50;
     rt->cyl.pos.z = 0;
-    rt->cyl.radius = 300;
+    rt->cyl.radius = 50;
 
-    rt->cyl.dir.x = 1;
-    rt->cyl.dir.y = 0;
-    rt->cyl.dir.z = 0;
+    rt->cyl.dir.x = 0.1;
+    rt->cyl.dir.y = 0.7;
+    rt->cyl.dir.z = 0.2;
 
     rt->cyl.dir = vector_normalize(&rt->cyl.dir);
     ///// experimental cylinder. needed to be tested

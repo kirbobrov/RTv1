@@ -44,7 +44,7 @@ int ft_intersect_sphere(t_ray *r, t_sphere *s, t_rt *rt) ///// write to shadows 
     if (x1 > x2)
         x1 = x2;
 
-    if (x1 > 0.0001 && x1 < r->dist)
+    if (x1 > 0.00001 && x1 < r->dist)
     {
         r->dist = x1;
         return (1);
