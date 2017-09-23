@@ -35,6 +35,7 @@ void    ft_initialize(t_rt *rt)
 	rt->sph[0].pos.y = 0;
 	rt->sph[0].pos.z = 200;
     rt->sph[0].radius = 120;
+    rt->sph[0].material = 0;
 
 //    rt->sph[0].i = 0;
 
@@ -61,19 +62,7 @@ void    ft_initialize(t_rt *rt)
     rt->sph[1].pos.y = -100;
     rt->sph[1].pos.z = -100;
     rt->sph[1].radius = 120;
-
-    rt->cyl.pos.x = 0;
-    rt->cyl.pos.y = 50;
-    rt->cyl.pos.z = 0;
-    rt->cyl.radius = 50;
-
-    rt->cyl.dir.x = 0.1;
-    rt->cyl.dir.y = 0.7;
-    rt->cyl.dir.z = 0.2;
-
-    rt->cyl.dir = vector_normalize(&rt->cyl.dir);
-    ///// experimental cylinder. needed to be tested
-
+    rt->sph[1].material = 1;
 
     rt->mat[2].diffuse.red = 0.3;
     rt->mat[2].diffuse.green = 0.7;
@@ -85,8 +74,27 @@ void    ft_initialize(t_rt *rt)
     rt->sph[2].pos.y = 150;
     rt->sph[2].pos.z = 500;
     rt->sph[2].radius = 120;
+    rt->sph[2].material = 2;
 
-//    rt->sph[1].i = 1;
+
+    rt->mat[3].diffuse.red = 0.9;
+    rt->mat[3].diffuse.green = 0.5;
+    rt->mat[3].diffuse.blue = 0.7;
+
+
+    rt->cyl.pos.x = 50;
+    rt->cyl.pos.y = -250;
+    rt->cyl.pos.z = 800;
+    rt->cyl.radius = 50;
+
+    rt->cyl.dir.x = 0.1;
+    rt->cyl.dir.y = 0.7;
+    rt->cyl.dir.z = 0.2;
+    rt->cyl.material = 1;
+
+    rt->cyl.dir = vector_normalize(&rt->cyl.dir);
+    ///// experimental cylinder. needed to be tested
+
 }
 
 int		main(void)

@@ -16,7 +16,7 @@ void    normale_sphere(t_rt *rt, int i)
 }
 
 
-int ft_intersect_sphere(t_ray *r, t_sphere *s, t_rt *rt) ///// write to shadows one more arg
+int intersection_sphere(t_ray *r, t_sphere *s, t_rt *rt) ///// write to shadows one more arg
 {
     float   A;
     float   B;

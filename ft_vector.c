@@ -77,3 +77,29 @@ float   vector_coss(t_vector *v1, t_vector *v2)
 {
     return (vector_dot(v1, v2) / (vector_len(v1) * vector_len(v2)));
 }
+
+float   ft_sqrtp(float a ,float b ,float c)
+{
+    float   d;
+    float   x;
+    float   x1;
+    float   x2;
+
+    d = b * b - 4 * a * c;
+    if (d == 0)
+    {
+        x = b / (2 * a);
+        return (x);
+    }
+    else if (d > 0)
+    {
+        x1 = (-b + sqrtf(d)) / (2 * a);
+        x2 = (-b - sqrtf(d)) / (2 * a);
+        if (x1 < x2)
+            return (x1);
+        else
+            return (x2);
+    }
+    else
+        return (0);
+}

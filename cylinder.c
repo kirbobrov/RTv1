@@ -83,7 +83,7 @@ int     intersect_cylinder(t_ray *ray, t_cylinder *cyl)///, float d)
 
 
 
-int find_abc_cylinder(t_ray *r, t_cylinder *c, t_rt *rt)
+int     intersection_cylinder(t_ray *r, t_cylinder *c, t_rt *rt)
 {
     float   A;
     float   B;
@@ -137,7 +137,6 @@ float discr;
     }
     return (0);
 }
-
 
 t_vector        normale_cylinder(t_ray *ray, t_cylinder *cyl)
 {

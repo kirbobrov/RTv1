@@ -44,7 +44,7 @@ typedef struct	s_sphere
 {
 	t_vector	pos;    ///centre
 	float		radius;
-    int         material;
+    //// int         material;
     t_color     scolor;
 
 }				t_sphere;
@@ -52,6 +52,7 @@ typedef struct	s_sphere
 typedef struct  s_cylinder
 {
     t_vector	pos;    ///centre
+    t_vector    dir;
     float		radius;
     int         material;
 }               t_cylinder;
@@ -111,23 +112,25 @@ typedef struct	s_rt
     ///double      color;
 }				t_rt;
 
-void	ft_imageinit(t_mlx *mx);
-void	ft_mlxinit(t_mlx *mx);
-void	ft_put_image(t_mlx *mx);
-int		ft_sphere(t_rt *rt);
-void	ft_img_color(t_rt *rt, int x, int y);
-t_vector vector_sub(t_vector *v1, t_vector *v2);
-t_vector vector_add(t_vector *v1, t_vector *v2);
-float vector_dot(t_vector *v1, t_vector *v2);
-t_vector vector_scale(float t, t_vector *v);
+void        ft_imageinit(t_mlx *mx);
+void        ft_mlxinit(t_mlx *mx);
+void        ft_put_image(t_mlx *mx);
+int         ft_sphere(t_rt *rt);
+void        ft_img_color(t_rt *rt, int x, int y);
+t_vector    vector_sub(t_vector *v1, t_vector *v2);
+t_vector    vector_add(t_vector *v1, t_vector *v2);
+float       vector_dot(t_vector *v1, t_vector *v2);
+t_vector    vector_scale(float t, t_vector *v);
 float       vector_len(t_vector *v);
 t_vector    vector_normalize(t_vector *v);
-float   vector_coss(t_vector *v1, t_vector *v2);
-void    sphere_color(t_rt *rt, t_material *mat);
+float       vector_coss(t_vector *v1, t_vector *v2);
+void        sphere_color(t_rt *rt, t_material *mat);
+int         ft_intersect_sphere(t_ray *r, t_sphere *s, t_rt *rt);
+void        normale_sphere(t_rt *rt, int i);
 
-
-
-
-
+int     find_abc_cylinder(t_ray *r, t_cylinder *c, t_rt *rt);
+int     intersect_cylinder(t_ray *ray, t_cylinder *cyl);
+////void	normale_cylinder(t_rt *rt, t_cylinder *cyl);
+t_vector        normale_cylinder(t_ray *ray, t_cylinder *cyl);
 
 #endif
