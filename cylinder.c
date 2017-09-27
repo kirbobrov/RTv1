@@ -132,7 +132,6 @@ float discr;
     if (x1 > 0.0001 && x1 < r->dist)
     {
         r->dist = x1;
-
         return (1);
     }
     return (0);

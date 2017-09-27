@@ -12,47 +12,71 @@
 
 #include "rtv.h"
 
-int    blick(t_rt *rt)
+//int    blick(t_rt *rt)
+//{
+//    int b = 0;
+//
+//    if (rt->fpointer == 0)
+//        (intersection_sphere(&rt->ray, &rt->sph[2], rt)) ? b = 1 : 0;
+//    if (rt->fpointer == 1)
+//        (intersection_cylinder(&rt->ray, &rt->cyl, rt)) ? b = 1 : 0;
+//    return (b);
+//}
+
+//void    figure_intersection(t_rt *rt)
+//{
+//    int i = 0;
+//
+//    if (intersection_cylinder(&rt->ray, &rt->cyl, rt))
+//    {
+//        rt->ray.normal = normale_cylinder(&rt->ray, &rt->cyl);
+//        figure_color(rt, &rt->mat[3]); /// &rt->mat[i]
+//        rt->hit = 1;
+//        rt->fpointer = 1;
+//    }
+//     else
+//    {
+//        while (i < 3)
+//        {
+//            if (intersection_sphere(&rt->ray, &rt->sph[i], rt))
+//            {
+//                normale_sphere(rt, i);
+//                figure_color(rt, &rt->mat[i]); /// &rt->mat[i]
+//                rt->hit = 1;
+//            }
+//            i++;
+//        }
+//        rt->fpointer = 0;
+//    }
+//}
+
+
+void    intersection(t_rt *rt)
 {
+    int    i;
 
-    int b = 0;
-
-    if (rt->fpointer == 0)
+    i = 0;
+    while (i < 4)
     {
-        (intersection_sphere(&rt->ray, &rt->sph[2], rt)) ? b = 1 : 0;
-    }
-    if (rt->fpointer == 1)
-    {
-        (intersection_cylinder(&rt->ray, &rt->cyl, rt)) ? b = 1 : 0;
-    }
-    return (b);
-}
-
-void    figure_intersection(t_rt *rt)
-{
-    int i = 0;
-
-    if (intersection_cylinder(&rt->ray, &rt->cyl, rt))
-    {
-
-        rt->ray.normal = normale_cylinder(&rt->ray, &rt->cyl);
-        figure_color(rt, &rt->mat[3]); /// &rt->mat[i]
-        rt->hit = 1;
-        rt->pointer = 1;
-    }
-     else
-    {
-        while (i < 3)
+        if (rt->obj[i].id == 0)
         {
-            if (intersection_sphere(&rt->ray, &rt->sph[i], rt))
-            {
-                normale_sphere(rt, i);
+            if (intersection_sphere(&rt->ray, (t_sphere *) rt->obj[i].obj, rt)) {
+                normale_sphere(rt, (t_sphere *) rt->obj[i].obj);
                 figure_color(rt, &rt->mat[i]); /// &rt->mat[i]
                 rt->hit = 1;
+                rt->hit2 = 1;
             }
-            i++;
         }
-        rt->pointer = 0;
+        else if (rt->obj[i].id == 1)
+        {
+            if (intersection_cylinder(&rt->ray, (t_cylinder *) rt->obj[i].obj, rt)) {
+                rt->ray.normal = normale_cylinder(&rt->ray, (t_cylinder *) rt->obj[i].obj);
+                figure_color(rt, &rt->mat[3]); /// &rt->mat[i]
+                rt->hit = 1;
+                rt->hit2 = 1;
+            }
+        }
+        i++;
     }
 }
 
@@ -85,7 +109,9 @@ int		ft_sphere(t_rt *rt)
 
             rt->ray.dist = 200000;
 
-            figure_intersection(rt);
+            ///figure_intersection(rt);
+
+            intersection(rt);
 
             if (rt->hit == 1)
             {
@@ -107,11 +133,13 @@ int		ft_sphere(t_rt *rt)
 
                 (lambert < 0) ? lambert = 0 : 0;
 
-                //rt->hit2 = intersection_cylinder(&lightRay, &rt->cyl, rt);
+                ///rt->hit2 = intersection_cylinder(&lightRay, &rt->cyl, rt);
 
                 ///rt->hit2 = intersection_sphere(&lightRay, &rt->sph[i], rt); /// ray
 
-                rt->hit2 = blick(rt);
+                ///rt->hit2 = blick(rt);
+                rt->hit2 = 0;
+                intersection(rt);
                if (rt->hit2 == 0)
                 {
 //                 rt->col.a = lambert * rt->light.intensity.a * rt->light.intensity.a * 255;
