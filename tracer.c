@@ -40,6 +40,7 @@ int		tracer(t_rt *rt)
 
             rt->ray.dist = 2000001;
 
+           /// printf("x == %d\ty == %d\t\t",x,y);
             intersection(rt);
 
             if (rt->hit == 1)

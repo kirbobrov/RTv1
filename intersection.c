@@ -10,7 +10,7 @@ void    intersection(t_rt *rt)
 
     i = 0;
     rt->i = 0;
-    while (i < 5)
+    while (i < 6)
     {
         if (rt->obj[i].id == SPHERE)
         {
@@ -38,6 +38,18 @@ void    intersection(t_rt *rt)
                 rt->hit = 1;
                 rt->hit2 = 1;
                 rt->i = 11;
+            }
+        }
+        else if (rt->obj[i].id == CONUS)
+        {
+
+            if (intersection_cone(&rt->ray, (t_cone *) rt->obj[i].obj, rt))
+            {
+                ///printf("i == %d\t CONE \n",i);
+                figure_color(rt, &rt->mat[5]); /// testing of material
+                rt->ray.normal = normale_cone(&rt->ray, (t_cone *) rt->obj[i].obj);
+                rt->hit = 1;
+                rt->hit2 = 1;
             }
         }
         i++;

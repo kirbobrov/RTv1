@@ -15,6 +15,33 @@
 /// pa - point of cylinder
 /// (V)^2 - vector_dot_product
 
+/*
+
+    a   = D|D - (D|V)^2
+   b/2 = D|X - (D|V)*(X|V)
+   c   = X|X - (X|V)^2 - r*r
+
+
+  m = D|V*t + X|V
+   N = nrm( P-C-V*m )
+ */
+
+/*
+ *
+ * tmp[0] = vector_mult(vector_dot_product(&r->dir, &cyl->dir), &cyl->dir);
+    tmp[0] = vector_substract(&r->dir, &tmp[0]);
+    n.a = vector_dot_product(&tmp[0], &tmp[0]);
+
+
+
+    delta = vector_substract(&r->origin, &cyl->pos);
+    tmp[1] = vector_mult(vector_dot_product(&delta, &cyl->dir), &cyl->dir);
+    tmp[1] = vector_substract(&delta, &tmp[1]);
+    n.b = 2 * vector_dot_product(&tmp[0], &tmp[1]);
+    n.c = vector_dot_product(&tmp[1], &tmp[1]) - pow(cyl->r, 2);
+ */
+
+
 int     intersection_cylinder(t_ray *r, t_cylinder *c, t_rt *rt)
 {
     float   A;
@@ -31,6 +58,7 @@ int     intersection_cylinder(t_ray *r, t_cylinder *c, t_rt *rt)
     dot = vector_dot(&r->dir, &c->dir);
     mult = vector_scale(dot, &c->dir);
     v1 = vector_sub(&r->dir, &mult); //// (V - (V, Va)Va)
+
     A = vector_dot(&v1, &v1);
 
     delta_p = vector_sub(&r->start, &c->pos);

@@ -77,6 +77,20 @@ float   vector_coss(t_vector *v1, t_vector *v2)
 {
     return (vector_dot(v1, v2) / (vector_len(v1) * vector_len(v2)));
 }
+/*
+a × b = {aybz - azby; azbx - axbz; axby - aybx}
+*/
+
+t_vector    vector_mult(t_vector *v1, t_vector *v2)
+{
+    t_vector    mult;
+
+    mult.x = (v1->y * v2->z) - (v1->z * v2->y);
+    mult.y = (v1->z * v2->x) - (v1->x * v2->z);
+    mult.z = (v1->x * v2->y) - (v1->y * v2->x);
+
+    return(mult);
+}
 
 float   ft_sqrtp(float a ,float b ,float c)
 {

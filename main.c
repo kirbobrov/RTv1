@@ -113,16 +113,18 @@ void    init_figure(t_rt *rt)
     rt->obj[4].obj = (void *)rt->pl;
 
     rt->con = malloc(sizeof(t_cone));
-    rt->con->pos.x = 50;
-    rt->con->pos.y = 50;
-    rt->con->pos.z = 150;
+    rt->con->pos.x = 0;
+    rt->con->pos.y = 0;
+    rt->con->pos.z = 0;
 
-    rt->con->dir.x = 0.6;
-    rt->con->dir.y = 0.3;
-    rt->con->dir.z = 0.1;
+    rt->con->dir.x = 0;
+    rt->con->dir.y = 1;
+    rt->con->dir.z = 0;
 
-    rt->con->a = 35;
-    rt->obj[5].id = 4;
+    int i = 10;
+    rt->con->a = RAD(i);
+
+    rt->obj[5].id = 2;
     rt->obj[5].obj = (void *)rt->pl;
 
 }

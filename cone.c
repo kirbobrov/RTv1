@@ -5,60 +5,166 @@
 #include "rtv.h"
 
 
-
-///normale_cone
-
-/// find_cone_abc()
-
-
-//// intersection_cone()
-
-
-
-
-
 /*
-Cone
+a   = D|D - (1+k*k)*(D|V)^2
 
-        Definition:
-C is the vertex of the cone
-        V is the axis vector
-k is the tangent of half angle of the cone
-minm, maxm define cap points
 
-To hit a cone we notice that:
+   b/2 = D|X - (1+k*k)*(D|V)*(X|V)
+   c   = X|X - (1+k*k)*(X|V)^2
 
-        A = C + V*m
-        ( P-A )|V = 0
-len( P-A )/m = k
-The (P-A)|V=0 equation is identical to the equation we know from cylinder, since cylinder is a special case of a cone.
-Solution:
+ */
+/*
+t_vector        cone_abc(t_ray *ray, t_cone *cone, t_vector *dist)
+{
+    t_vector    abc;
 
-        m = D|V*t + X|V    (like for cylinder)
-len( P-C-V*m ) = m*k
-dot( D*t+X - V*(D|V*t + X|V) ) = k^2 * ( D|V*t + X|V )^2
-dot( (D-V*(D|V))*t + X-V*(X|V) ) = k^2 * ( D|V*t + X|V )^2
-Now the coefficients of the left-side trinomial are similar like for cylinder:
-        a   = D|D - (D|V)^2
-b/2 = D|X - (D|V)*(X|V)
-c   = X|X - (X|V)^2
-And the right-side coefficients:
-k^2 * ( D|V*t + X|V )^2 =
-= k^2 * ( (D|V)^2 * t^2 + 2*(D|V)*(X|V)*t + (X|V)^2 )
-a   = k*k*(D|V)^2
-b/2 = k*k*(D|V)*(X|V)
-c   = k*k*(X|V)^2
-Finally:
-        a   = D|D - (1+k*k)*(D|V)^2
-b/2 = D|X - (1+k*k)*(D|V)*(X|V)
-c   = X|X - (1+k*k)*(X|V)^2
-To calculate surface normal it is enough to notice that we have to normalize vector (P-C-V*m) - V*a. How to calculate a ? The angle between the normal and P-C-V*m must be the same as half angle of the cone. Hence:
+    abc.x = vector_dot(&ray->dir, &ray->dir)
+    - (1 + pow(tan(cone->angle), 2))
+    * pow(vector_dot(&ray->dir, &cone->rot), 2);
 
-        a/r = k
-r/m = k
-a = m*k*k
-N = nrm( P-C-V*m - V*m*k*k )
-N = nrm( P-C - (1+k*k)*V*m )
-We cap the cone like a cylinder (except that the start cap point does not have to be at 0).
 
-*/
+    abc.y = 2 * (vector_dot(&ray->dir, dist)
+    - (1 + pow(tan(cone->angle), 2)) * (vector_dot(&ray->dir, &cone->rot)
+    * vector_dot(dist, &cone->rot)));
+
+
+    abc.z = vector_dot(dist, dist)
+    - (1 + pow(tan(cone->angle), 2)) * pow(vector_dot(dist, &cone->rot), 2);
+    return (abc);
+}
+
+ */
+int     intersection_cone(t_ray *r, t_cone *c, t_rt *rt)
+{
+    float   A;
+    float   B;
+    float   C;
+
+    t_vector    delta_p;
+    t_vector    mult;
+    t_vector    v1;
+    t_vector    v2;
+
+    float k;
+
+    k = (float) tan(c->a);
+   /// k = cn->a * M_PI / 180;
+  ///  ra = 1 + k * k ;
+    delta_p = vector_sub(&r->start, &c->pos);
+
+   /// dot = vector_dot(&r->dir, &c->dir);
+
+    v1 = vector_scale(vector_dot(&r->dir, &c->dir), &c->dir);
+    v1 = vector_sub(&r->dir, &v1);
+    A = vector_dot(&v1, &v1);
+
+    v2 = vector_scale(vector_dot(&delta_p, &c->dir), &c->dir);
+    v2 = vector_sub(&delta_p, &v2);
+    B = vector_dot(&v1, &v2);
+
+    C = vector_dot(&v1, &v1) - (powf(c->a, 2));
+
+
+    float discr;
+
+    discr = B * B - 4 * A * C;
+
+    if (discr < 0)
+        return (0);
+
+    float x1 = (-B + sqrtf(discr)) / (2 * A);
+    float x2 = (-B - sqrtf(discr)) / (2 * A);
+
+    if (x1 < 0)
+        x1 = 100000000;
+    if (x2 < 0)
+        x2 = 100000000;
+    if (x1 > x2)
+        x1 = x2;
+    if (x1 > 0.0001 && x1 < r->dist)
+    {
+        r->dist = x1;
+        return (1);
+    }
+    return (0);
+}
+
+
+//int     intersection_cone(t_ray *ray, t_cone *cn, t_rt *rt)
+//{
+//    t_vector X;
+//    X.x = ray->start.x - cn->pos.x;
+//    X.y = ray->start.y - cn->pos.y;
+//    X.z = ray->start.z - cn->pos.z;
+//    t_vector va;
+//    va.x = cn->dir.x;
+//    va.y = cn->dir.y;
+//    va.z = cn->dir.z;
+//
+//    double k = tan(RAD(cn->a) / 2);
+//
+//    double a = vector_dot(&ray->dir, &ray->dir) - ((1 + (k * k)) * pow(vector_dot(&ray->dir, &va), 2));
+//    double b = 2 * (vector_dot(&ray->dir, &X) - ((1 + (k * k)) * vector_dot(&ray->dir, &va) * vector_dot(&X, &va)));
+//    double c = vector_dot(&X, &X) - ((1 + (k * k)) * pow(vector_dot(&X, &va), 2));
+//    double we = (b*b) - (4 * a * c);
+//
+//    if(we < 0)
+//        return(0);
+//    else {
+//        double t1 = (-b - sqrt(we))/ (2 * a);
+//        double t2 = (-b + sqrt(we))/ (2 * a);
+//
+//        if(t2 > 0 && t1 > t2) {
+//            ray->dist = t2;
+//        }
+//        else if(t1 > 0 && t2 >= t1) {
+//            ray->dist = t1;
+//        }
+//    }
+//    return (0);
+//}
+
+
+
+//t_vector        normale_cone(t_ray *ray, t_cone *cn)
+//{
+//    t_vector normale;
+//    t_vector temp;
+//    t_vector scale_cent;
+//    float k;
+//    float ra;
+//
+//    k = tan(RAD(cn->a) / 2);
+//    ra = 1 + k * k ;
+//
+//
+//    cn->hit_point = vector_scale(ray->dist, &ray->dir); ////  D|V*t
+//    cn->hit_point = vector_add(&cn->hit_point, &ray->start); //// D|V*t + X|V
+//
+//    temp = vector_sub(&cn->hit_point, &cn->pos);
+//
+//    scale_cent = vector_scale(vector_dot(&temp, &cn->dir), &cn->dir);
+//
+//    temp = vector_scale(ra, &temp);
+//    normale = vector_sub(&temp, &scale_cent);
+//
+//    return (vector_normalize(&normale));
+//}
+
+t_vector        normale_cone(t_ray *ray, t_cone *cn)
+{
+    t_vector norm;
+    t_vector tmp1;
+    t_vector tmp2;
+
+    cn->hit_point = vector_scale(ray->dist, &ray->dir); ////  D|V*t
+    cn->hit_point = vector_add(&cn->hit_point, &ray->start); //// D|V*t + X|V
+
+    tmp1 = vector_sub(&cn->hit_point, &cn->pos);
+    tmp1 = vector_normalize(&tmp1);
+    tmp2 = vector_scale((vector_len(&tmp1) / cosf(cn->a)), &cn->dir);
+//    if (vector_dot(&norm, &cn->dir) < 0)
+//        tmp2 = change_vector_direction(&tmp2);
+    norm = vector_sub(&tmp1, &tmp2);
+    return (vector_normalize(&norm));
+}
