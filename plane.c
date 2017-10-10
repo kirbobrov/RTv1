@@ -25,16 +25,3 @@ int intersection_plane(t_ray *ray, t_plane *pl, t_rt *rt)
     }
     return (0);
 }
-
-
-/*
-double  ft_inter_plane(t_th *mlx, t_obj *tmp, t_vec ray, t_vec pos)
-{
-	mlx->t0 = ((ft_vectordot(&tmp->rot, &tmp->pos) -
-				ft_vectordot(&tmp->rot, &pos)) / ft_vectordot(&tmp->rot, &ray));
-	if (mlx->t0 < 0.0001)
-		return (-1);
-	return (mlx->t0);
-}
-
-*/

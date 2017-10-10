@@ -11,7 +11,7 @@ int		tracer(t_rt *rt)
 
     rt->ray.start.x = 0;
     rt->ray.start.y = 0;
-    rt->ray.start.z = -130;
+    rt->ray.start.z = -300;
 
    /// yc = SIZE_Y / 2;
    /// xc = SIZE_X / 2;
@@ -43,6 +43,21 @@ int		tracer(t_rt *rt)
            /// printf("x == %d\ty == %d\t\t",x,y);
             intersection(rt);
 
+
+            ///printf("i == %d\t CONE \n",i);
+//            intersection_cone(&rt->ray, (t_cone *) rt->obj[5].obj, rt);
+//            figure_color(rt, &rt->mat[5]); /// testing of material
+//            rt->ray.normal = normale_cone(&rt->ray, (t_cone *) rt->obj[5].obj);
+//            rt->hit = 1;
+//            rt->hit2 = 1;
+//            printf("CONUS r->dist === %f\n", rt->ray.dist);
+
+
+
+
+
+
+
             if (rt->hit == 1)
             {
                 t_vector dist; /// distantion
@@ -68,6 +83,11 @@ int		tracer(t_rt *rt)
                     (lambert < 0) ? (lambert = -lambert) : 0;
                    /// printf("plaine lambert == %f\n", lambert);
                 }
+
+
+//                rt->col.red = lambert * rt->col.red;
+//                rt->col.green = lambert * rt->col.green;
+//                rt->col.blue = lambert * rt->col.blue;
                 rt->hit2 = 0;
                 intersection(rt);
                 if (rt->hit2 == 0)
@@ -89,9 +109,9 @@ int		tracer(t_rt *rt)
                 else
                 {
                     rt->col.a = 0.9;
-                    rt->col.blue = 0.5;
+                    rt->col.blue = 1;
                     rt->col.green = 1 /255;
-                    rt->col.red = 0.1;
+                    rt->col.red = 1;
                     /// printf(" HELLO \n"); //// shadow
                 }
             }

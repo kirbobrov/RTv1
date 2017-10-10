@@ -19,39 +19,45 @@ void    intersection(t_rt *rt)
                 figure_color(rt, &rt->mat[i]); /// &rt->mat[i]
                 rt->hit = 1;
                 rt->hit2 = 1;
+                printf("SPHERE r->dist === %f\t", rt->ray.dist);
             }
         }
         else if (rt->obj[i].id == CYLINDER)
         {
-            if (intersection_cylinder(&rt->ray, (t_cylinder *) rt->obj[i].obj, rt)) {
-                rt->ray.normal = normale_cylinder(&rt->ray, (t_cylinder *) rt->obj[i].obj);
+            if (intersection_cylinder(&rt->ray, (t_cylinder *) rt->obj[3].obj, rt)) {
+                rt->ray.normal = normale_cylinder(&rt->ray, (t_cylinder *) rt->obj[3].obj);
                 figure_color(rt, &rt->mat[5]); /// &rt->mat[i]
                 rt->hit = 1;
                 rt->hit2 = 1;
+                printf("CYLINDER r->dist === %f\t", rt->ray.dist);
             }
         }
         else if (rt->obj[i].id == PLANE)
         {
-            if (intersection_plane(&rt->ray, (t_plane *) rt->obj[i].obj, rt))
+            if (intersection_plane(&rt->ray, (t_plane *) rt->obj[4].obj, rt))
             {
-                figure_color(rt, &rt->mat[4]); /// testing of material
+                figure_color(rt, &rt->mat[3]); /// testing of material
                 rt->hit = 1;
                 rt->hit2 = 1;
                 rt->i = 11;
+                printf("PLANE r->dist === %f\t", rt->ray.dist);
             }
         }
         else if (rt->obj[i].id == CONUS)
         {
 
-            if (intersection_cone(&rt->ray, (t_cone *) rt->obj[i].obj, rt))
+            if (intersection_cone(&rt->ray, (t_cone *) rt->obj[5].obj, rt))
             {
                 ///printf("i == %d\t CONE \n",i);
-                figure_color(rt, &rt->mat[5]); /// testing of material
-                rt->ray.normal = normale_cone(&rt->ray, (t_cone *) rt->obj[i].obj);
+                figure_color(rt, &rt->mat[4]); /// testing of material
+                rt->ray.normal = normale_cone(&rt->ray, (t_cone *) rt->obj[5].obj);
                 rt->hit = 1;
                 rt->hit2 = 1;
+                printf("CONUS r->dist === %f\t", rt->ray.dist);
             }
+            printf("\n");
         }
+
         i++;
     }
 }

@@ -50,6 +50,10 @@ void    init_figure(t_rt *rt)
 	rt->ray.dir.y = 0;
 	rt->ray.dir.z = 1;
 
+//    rt->dir0.x = rt->ray.dir.x;
+//    rt->dir0.y = rt->ray.dir.y;
+//    rt->dir0.z = rt->ray.dir.z;
+
     rt->light.pos.x = -1800;
     rt->light.pos.y = 300;
     rt->light.pos.z = -2000;
@@ -115,17 +119,17 @@ void    init_figure(t_rt *rt)
     rt->con = malloc(sizeof(t_cone));
     rt->con->pos.x = 0;
     rt->con->pos.y = 0;
-    rt->con->pos.z = 0;
+    rt->con->pos.z = -100;
 
     rt->con->dir.x = 0;
     rt->con->dir.y = 1;
     rt->con->dir.z = 0;
 
-    int i = 10;
+    int i = 20;
     rt->con->a = RAD(i);
 
     rt->obj[5].id = 2;
-    rt->obj[5].obj = (void *)rt->pl;
+    rt->obj[5].obj = (void *)rt->con;
 
 }
 
