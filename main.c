@@ -12,103 +12,144 @@
 
 #include "rtv.h"
 
-int		ft_mouse_exit(void)
-{
-	exit(55);
-}
-
-int     ft_keys(int id, t_rt *r)
-{
-    (id == 53) ? exit(53) : 0;
-    return (0);
-}
-
-void    ft_initialize(t_rt *rt)
+void    init_material(t_rt *rt)
 {
     rt->mat[0].diffuse.red = 1;
     rt->mat[0].diffuse.green = 0.3;
     rt->mat[0].diffuse.blue = 0;
-//    rt->mat.diffuse.a = 1;
+//  rt->mat.diffuse.a = 1;
     rt->mat[0].reflection = 0.2;
 
-    rt->sph[0].pos.x = 0;
-	rt->sph[0].pos.y = 0;
-	rt->sph[0].pos.z = 200;
-    rt->sph[0].radius = 120;
-    rt->sph[0].material = 0;
+    rt->mat[2].diffuse.red = 0.3;
+    rt->mat[2].diffuse.green = 0.7;
+    rt->mat[2].diffuse.blue = 0.2;
+//  rt->mat.diffuse.a = 1;
+    rt->mat[2].reflection = 0.2;
 
-//    rt->sph[0].i = 0;
+    rt->mat[1].diffuse.red = 0;
+    rt->mat[1].diffuse.green = 0.3;
+    rt->mat[1].diffuse.blue = 1;
+    rt->mat[1].reflection = 0.2;   ///blue
+
+    rt->mat[3].diffuse.red = 0.5;
+    rt->mat[3].diffuse.green = 0.4;
+    rt->mat[3].diffuse.blue = 0.7;
+
+    rt->mat[4].diffuse.red = 0.1;
+    rt->mat[4].diffuse.green = 0.2;
+    rt->mat[4].diffuse.blue = 0.3;
+
+    rt->mat[5].diffuse.red = 0.5;
+    rt->mat[5].diffuse.green = 0.3;
+    rt->mat[5].diffuse.blue = 0.1;
+}
+
+void    init_figure(t_rt *rt)
+{
+
+    rt->ray.start.x = 0;
+    rt->ray.start.y = 0;
+    rt->ray.start.z = -250;
 
 	rt->ray.dir.x = 0;
 	rt->ray.dir.y = 0;
 	rt->ray.dir.z = 1;
 
     rt->light.pos.x = -1800;
-    rt->light.pos.y = -300;
+    rt->light.pos.y = 300;
     rt->light.pos.z = -2000;
 
     rt->light.intensity.red = 1;
     rt->light.intensity.green = 1;
     rt->light.intensity.blue = 1;
-//    rt->light.intensity.a = 1;
 
-/////////////////////////////////// second sphere0
-    rt->mat[1].diffuse.red = 0;
-    rt->mat[1].diffuse.green = 0.3;
-    rt->mat[1].diffuse.blue = 1;
-    rt->mat[1].reflection = 0.2;
+    rt->sph0 = malloc(sizeof(t_sphere));
 
-    rt->sph[1].pos.x = -180;
-    rt->sph[1].pos.y = -100;
-    rt->sph[1].pos.z = -100;
-    rt->sph[1].radius = 120;
-    rt->sph[1].material = 1;
+    rt->sph0->pos.x = 0;
+    rt->sph0->pos.y = 0;
+    rt->sph0->pos.z = 20;
+    rt->sph0->radius = 12;
+    rt->sph0->material = 0;
+    rt->obj[0].id = 0;
+    rt->obj[0].obj = (void *)rt->sph0;
 
-    rt->mat[2].diffuse.red = 0.3;
-    rt->mat[2].diffuse.green = 0.7;
-    rt->mat[2].diffuse.blue = 0.2;
-//    rt->mat.diffuse.a = 1;
-    rt->mat[2].reflection = 0.2;
+    rt->sph1 = malloc(sizeof(t_sphere));
+    rt->sph1->pos.x = -22;
+    rt->sph1->pos.y = 12;
+    rt->sph1->pos.z = -20;
+    rt->sph1->radius = 12;
+    rt->sph1->material = 1;
+    rt->obj[1].id = 0;
+    rt->obj[1].obj = (void *)rt->sph1;
 
-    rt->sph[2].pos.x = 300;
-    rt->sph[2].pos.y = 150;
-    rt->sph[2].pos.z = 500;
-    rt->sph[2].radius = 120;
-    rt->sph[2].material = 2;
+    rt->sph2 = malloc(sizeof(t_sphere));
+    rt->sph2->pos.x = 32;
+    rt->sph2->pos.y = -12;
+    rt->sph2->pos.z = 70;
+    rt->sph2->radius = 12;
+    rt->sph2->material = 2;
+    rt->obj[2].id = 0;
+    rt->obj[2].obj = (void *)rt->sph2;
+
+    rt->cyl = malloc(sizeof(t_cylinder));
+    rt->cyl->pos.x = 12;
+    rt->cyl->pos.y = 0;
+    rt->cyl->pos.z = 100;
+    rt->cyl->radius = 8;
+    rt->cyl->dir.x = 0.1;
+    rt->cyl->dir.y = 0.8;
+    rt->cyl->dir.z = 0.2;
+    rt->cyl->material = 3;
+    rt->cyl->dir = vector_normalize(&rt->cyl->dir);
+    rt->obj[3].id = 1;
+    rt->obj[3].obj = (void *)rt->cyl;
 
 
-    rt->mat[3].diffuse.red = 0.9;
-    rt->mat[3].diffuse.green = 0.5;
-    rt->mat[3].diffuse.blue = 0.7;
+    rt->con = malloc(sizeof(t_cone));
+    rt->con->pos.x = -35;
+    rt->con->pos.y = 15;
+    rt->con->pos.z = 120;
+
+    rt->con->dir.x = -0.2;
+    rt->con->dir.y = 0.7;
+    rt->con->dir.z = 0.2;
+    rt->con->dir = vector_normalize(&rt->con->dir);
+
+    rt->con->a = (double) (15 * M_PI / 180);
+    rt->con->material = 5;
+    rt->obj[4].id = CONUS;
+    rt->obj[4].obj = (void *)rt->con;
 
 
-    rt->cyl.pos.x = 50;
-    rt->cyl.pos.y = -250;
-    rt->cyl.pos.z = 800;
-    rt->cyl.radius = 50;
+    rt->pl = malloc(sizeof(t_plane));
+    rt->pl->pos.x = 0;
+    rt->pl->pos.y = 0;
+    rt->pl->pos.z = 500;
 
-    rt->cyl.dir.x = 0.1;
-    rt->cyl.dir.y = 0.7;
-    rt->cyl.dir.z = 0.2;
-    rt->cyl.material = 1;
+    rt->pl->dir.x = 0;
+    rt->pl->dir.y = 0;
+    rt->pl->dir.z = -1;
+    rt->pl->dir = vector_normalize(&rt->pl->dir);
 
-    rt->cyl.dir = vector_normalize(&rt->cyl.dir);
-    ///// experimental cylinder. needed to be tested
-
+    rt->pl->material = 4;
+    rt->obj[5].id = PLANE;
+    rt->obj[5].obj = (void *)rt->pl;
 }
 
 int		main(void)
 {
 	t_rt	r;
-	ft_mlxinit(&r.mx);
-	ft_imageinit(&r.mx);
-    ft_initialize(&r);
+    ft_mlxinit(&r.mx);
+//	ft_imageinit(&r.mx);
+    init_material(&r);
+    init_figure(&r);
+    cam_init(&r.cam);
 
-    ft_sphere(&r);
+    tracer(&r);
 
 	///mlx_hook(r.mx.win, 2, 5, my_key, &r);
-	ft_put_image(r.mx.mlx);
-//    mlx_loop_hook(r.mx.mlx, ft_sphere, &r);
+//	ft_put_image(r.mx.mlx);
+///// mlx_loop_hook(r.mx.mlx, ft_sphere, &r);
     mlx_hook(r.mx.win, 17, 0L, ft_mouse_exit, &r);
     mlx_hook(r.mx.win, 2, 5, ft_keys, &r);
     mlx_loop(r.mx.mlx);

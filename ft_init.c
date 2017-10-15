@@ -6,7 +6,7 @@
 /*   By: kbobrov <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/12 18:11:18 by kbobrov           #+#    #+#             */
-/*   Updated: 2017/08/12 18:11:23 by kbobrov          ###   ########.fr       */
+/*   Updated: 2017/10/15 20:41:38 by kbobrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@ void	ft_img_color(t_rt *rt, int x, int y)
         pix = y * rt->mx.sizel + (x * 4);
         if (pix < SIZE_Y * SIZE_X * 4)
         {
-            rt->mx.buf[pix] = rt->col.blue; ////blue;
-            rt->mx.buf[pix + 1] = rt->col.green; ///w->f->green;
-            rt->mx.buf[pix + 2] = rt->col.red; ///w->f->red;
-//            rt->mx.buf[pix + 3] = rt->col.a;
+            rt->mx.buf[pix] = rt->col.blue;
+            rt->mx.buf[pix + 1] = rt->col.green;
+            rt->mx.buf[pix + 2] = rt->col.red;
         }
     }
 }

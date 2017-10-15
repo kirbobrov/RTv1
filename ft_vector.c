@@ -6,12 +6,25 @@
 /*   By: kbobrov <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/12 18:11:38 by kbobrov           #+#    #+#             */
-/*   Updated: 2017/08/12 18:11:41 by kbobrov          ###   ########.fr       */
+/*   Updated: 2017/10/15 20:42:07 by kbobrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv.h"
 
+//double        vector_cos(t_vector *v1, t_vector *v2)
+//{
+//    double    a;
+//    double    b;
+//    double    c;
+//    double    cos;
+//
+//    a = vector_dot(v1, v2);
+//    b = vector_dot(v1, v1);
+//    c = vector_dot(v2, v2);
+//    cos = a / (b * c);
+//    return (cos);
+//}
 t_vector vector_sub(t_vector *v1, t_vector *v2)
 {
     t_vector result;
@@ -21,6 +34,19 @@ t_vector vector_sub(t_vector *v1, t_vector *v2)
     result.z = v1->z - v2->z;
     return (result);
 }
+
+t_vector    cross_product(t_vector *v1, t_vector *v2)
+{
+    t_vector    v;
+
+    v.x = v1->y * v2->z - v1->z * v2->y;
+    v.y = v1->z * v2->x - v1->x * v2->z;
+    v.z = v1->x * v2->y - v1->y * v2->x;
+    return (v);
+}
+
+
+
 
 t_vector vector_add(t_vector *v1, t_vector *v2)
 {
@@ -32,12 +58,12 @@ t_vector vector_add(t_vector *v1, t_vector *v2)
 }
 
 /* Multiply two vectors and return the resulting scalar (dot product) */
-float vector_dot(t_vector *v1, t_vector *v2)
+double vector_dot(t_vector *v1, t_vector *v2)
 {
     return (v1->x * v2->x + v1->y * v2->y + v1->z * v2->z);
 }
 
-t_vector vector_scale(float t, t_vector *v)
+t_vector vector_scale(double t, t_vector *v)
 {
     t_vector result;
 
@@ -47,14 +73,14 @@ t_vector vector_scale(float t, t_vector *v)
     return (result);
 }
 
-float       vector_len(t_vector *v)
+double       vector_len(t_vector *v)
 {
-    return (sqrtf((v->x * v->x) + (v->y * v->y) + (v->z * v->z)));
+    return (sqrt((v->x * v->x) + (v->y * v->y) + (v->z * v->z)));
 }
 
 t_vector    vector_normalize(t_vector *v)
 {
-    float       len;
+    double       len;
     t_vector    v1;
 
     len = vector_len(v);
@@ -73,17 +99,31 @@ t_vector    vector_normalize(t_vector *v)
     return(v1);
 }
 
-float   vector_coss(t_vector *v1, t_vector *v2)
+double   vector_coss(t_vector *v1, t_vector *v2)
 {
     return (vector_dot(v1, v2) / (vector_len(v1) * vector_len(v2)));
 }
+/*
+a × b = {aybz - azby; azbx - axbz; axby - aybx}
+*/
 
-float   ft_sqrtp(float a ,float b ,float c)
+t_vector    vector_mult(t_vector *v1, t_vector *v2)
 {
-    float   d;
-    float   x;
-    float   x1;
-    float   x2;
+    t_vector    mult;
+
+    mult.x = (v1->y * v2->z) - (v1->z * v2->y);
+    mult.y = (v1->z * v2->x) - (v1->x * v2->z);
+    mult.z = (v1->x * v2->y) - (v1->y * v2->x);
+
+    return(mult);
+}
+
+double   ft_sqrtp(double a ,double b ,double c)
+{
+    double   d;
+    double   x;
+    double   x1;
+    double   x2;
 
     d = b * b - 4 * a * c;
     if (d == 0)
@@ -93,8 +133,8 @@ float   ft_sqrtp(float a ,float b ,float c)
     }
     else if (d > 0)
     {
-        x1 = (-b + sqrtf(d)) / (2 * a);
-        x2 = (-b - sqrtf(d)) / (2 * a);
+        x1 = (-b + sqrt(d)) / (2 * a);
+        x2 = (-b - sqrt(d)) / (2 * a);
         if (x1 < x2)
             return (x1);
         else

@@ -21,31 +21,60 @@
 # include "minilibx/mlx.h"
 # include <stdbool.h>
 # include "libft/libft.h"
-# define SIZE_Y 600
-# define SIZE_X 800
-# define M_PI 3.14159265358979323846264338327950288
+# define RAD(a) (a = a * (M_PI / 180))
+# define SIZE_Y 800
+# define SIZE_X 1000
+# define SPHERE 0
+# define CYLINDER 1
+# define CONUS 2
+# define PLANE 3
+
+////# define M_PI 3.14159265358979323846264338327950288
+
+
+//typedef struct  s_equetion
+//{
+//    double       tmp[2];
+//    double         root[2];
+//    double       sqdiscr;
+//    double       discr;
+//    double   a;
+//    double   b;
+//    double   c;
+//}               t_equation;
+typedef struct  s_camera
+{
+    double      invwidth;
+    double      invheight;
+    double      aspectratio;
+    double      angle;
+    double      vertical;
+    double      horizontal;
+
+}               t_camera;
 
 typedef struct	s_vector
 {
-	float		x;
-	float		y;
-	float		z;
+	double		x;
+	double		y;
+	double		z;
 }				t_vector;
 
 typedef struct  s_color ////color definithion
 {
-    float      red;
-    float      green;
-    float       blue;
-    float       a;
+    double      red;
+    double      green;
+    double       blue;
+    double       a;
 }               t_color;
 
 typedef struct	s_sphere
 {
 	t_vector	pos;    ///centre
-	float		radius;
-    //// int         material;
-    t_color     scolor;
+	double		radius;
+    int         material;
+    int         id;
+    t_vector    hit_point;
 
 }				t_sphere;
 
@@ -53,9 +82,31 @@ typedef struct  s_cylinder
 {
     t_vector	pos;    ///centre
     t_vector    dir;
-    float		radius;
+    t_vector    hit_point;
+    double		radius;
     int         material;
+    int         id;
 }               t_cylinder;
+
+typedef struct  s_plane
+{
+    t_vector    dir;
+    t_vector    pos;
+    int         id;
+    int         material;
+}               t_plane;
+
+typedef struct  s_cone
+{
+    t_vector    pos;
+    t_vector    dir;
+    double         a;
+    t_vector    hit_point;
+
+    int         material;
+    int         id;
+}               t_cone;
+
 
 typedef struct	s_ray
 {
@@ -64,7 +115,7 @@ typedef struct	s_ray
     t_vector    normdir; /// normalize direction vector
     t_vector    hit_point;
     t_vector    normal;
-    float       dist;      ///distantion
+    double       dist;      ///distantion
 }				t_ray;
 
 typedef struct  s_light /// light defenition
@@ -76,7 +127,7 @@ typedef struct  s_light /// light defenition
 typedef struct  s_material  //// Material definition
 {
     t_color     diffuse;
-    float       reflection;
+    double       reflection;
 }               t_material;
 
 typedef struct	s_mlx
@@ -90,47 +141,82 @@ typedef struct	s_mlx
 	int			sizel;
 }				t_mlx;
 
+typedef struct  s_object
+{
+    int         id;
+    void        *obj;
+}               t_object;
+
 typedef struct	s_rt
 {
 	t_mlx		mx;     ///mlx
 	t_vector	vec;    ///vector
-	t_sphere	sph[3];    ///sphere
-    t_sphere    *spointer;
-	t_ray		ray;    ///ray
+
+    t_sphere    *sph0;
+    t_sphere    *sph1;
+    t_sphere    *sph2;
+    t_cylinder  *cyl;
+    t_plane     *pl;
+    t_cone      *con;
+    t_ray		ray;
+
+    t_camera    cam;
+
     t_color     col;    ///color
-    int         x;      /// current x
-    int         y;      /// current y
-    t_light     light;  /// light
-    t_material  mat[3];    ///material
+    t_light     light;
+    t_material  mat[6];
+    t_object    obj[6];
 
-    t_cylinder  cyl;
+//    int         hit;
+//    int         hit2;
+
+    int     id;
+
+  ///  double         xx;      /// current x
+  ///  double         yy;      /// current y
 
 
-
-    t_material  *mpointer;
-    int         i;
-    ///double      color;
 }				t_rt;
 
 void        ft_imageinit(t_mlx *mx);
 void        ft_mlxinit(t_mlx *mx);
 void        ft_put_image(t_mlx *mx);
-int         ft_sphere(t_rt *rt);
+void         tracer(t_rt *rt);
 void        ft_img_color(t_rt *rt, int x, int y);
-t_vector    vector_sub(t_vector *v1, t_vector *v2);
-t_vector    vector_add(t_vector *v1, t_vector *v2);
-float       vector_dot(t_vector *v1, t_vector *v2);
-t_vector    vector_scale(float t, t_vector *v);
-float       vector_len(t_vector *v);
-t_vector    vector_normalize(t_vector *v);
-float       vector_coss(t_vector *v1, t_vector *v2);
-void        sphere_color(t_rt *rt, t_material *mat);
-int         ft_intersect_sphere(t_ray *r, t_sphere *s, t_rt *rt);
-void        normale_sphere(t_rt *rt, int i);
+int         ft_keys(int id, t_rt *r);
+int		   ft_mouse_exit(void);
 
-int     find_abc_cylinder(t_ray *r, t_cylinder *c, t_rt *rt);
-int     intersect_cylinder(t_ray *ray, t_cylinder *cyl);
-////void	normale_cylinder(t_rt *rt, t_cylinder *cyl);
+t_vector        vector_sub(t_vector *v1, t_vector *v2);
+t_vector        vector_add(t_vector *v1, t_vector *v2);
+double           vector_dot(t_vector *v1, t_vector *v2);
+t_vector        vector_scale(double t, t_vector *v);
+double           vector_len(t_vector *v);
+t_vector        vector_normalize(t_vector *v);
+double           vector_coss(t_vector *v1, t_vector *v2);
+t_vector        vector_mult(t_vector *v1, t_vector *v2);
+
+
+
+double           vector_cos(t_vector *v1, t_vector *v2);
+t_vector    cross_product(t_vector *v1, t_vector *v2);
+
+
+
+
+int            intersection(t_rt *rt);
+int             intersection_sphere(t_ray *r, t_sphere *s, t_rt *rt);
+void            normale_sphere(t_rt *rt, t_sphere *sph);
+int             intersection_cylinder(t_ray *r, t_cylinder *c, t_rt *rt);
 t_vector        normale_cylinder(t_ray *ray, t_cylinder *cyl);
+int             intersection_plane(t_ray *ray, t_plane *pl, t_rt *rt);
+void            figure_color(t_rt *rt, t_material *mat);
+
+int             intersection_cone(t_ray *r, t_cone *cn, t_rt *rt);
+t_vector        normale_cone(t_ray *ray, t_cone *cn);
+
+
+
+void    cam_init(t_camera *cam);
+void    camera(t_rt *rt, int x, int y);
 
 #endif
