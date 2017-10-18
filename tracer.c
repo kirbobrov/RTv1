@@ -23,6 +23,7 @@ void		tracer(t_rt *rt)
     t_vector    dist;
 
     ft_imageinit(&rt->mx);
+    ///rt->ray.angle = 10;
     y = -1;
     while (++y < SIZE_Y)
     {
@@ -32,7 +33,8 @@ void		tracer(t_rt *rt)
             camera(rt, x, y);
             if (intersection(rt))
             {
-                dist = vector_sub(&rt->light.pos, &rt->ray.hit_point);
+                ft_rotate(rt);
+                dist = vector_sub(&rt->light[0].pos, &rt->ray.hit_point);
 
                 t = vector_len(&dist);
 
@@ -70,15 +72,7 @@ void		tracer(t_rt *rt)
                 rt->col.red = 0.3;
             }
             ft_img_color(rt, x, y);
-     //       x++;
         }
-    //    y++;
     }
-   /// printf("2\n");
     ft_put_image((t_mlx *) &rt->mx.mlx);
-   /// printf("3\n");
-
-//    mlx_hook(rt->mx.win, 17, 0L, ft_mouse_exit, &rt);
-//    mlx_hook(rt->mx.win, 2, 5, ft_keys, &rt);
-//    mlx_loop(rt->mx.mlx);
 }

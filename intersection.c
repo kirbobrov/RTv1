@@ -10,20 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by Kyrylo Bobrov on 10/7/17.
-//
-
 #include "rtv.h"
 
 t_vector    plane_normale(t_plane *pl, t_ray *ray)
 {
     ray->hit_point = vector_scale(ray->dist, &ray->dir);
     ray->hit_point = vector_add(&ray->hit_point, &ray->start);
-
     return(vector_normalize(&pl->dir));
 }
-
 
 int    intersection(t_rt *rt)
 {
@@ -42,7 +36,7 @@ int    intersection(t_rt *rt)
          }
         else if (rt->obj[i].id == SPHERE)
         {
-            if (intersection_sphere(&rt->ray, (t_sphere *) rt->obj[i].obj, rt))
+            if (intersection_sphere(&rt->ray, (t_sphere *) rt->obj[i].obj))
             {
                 normale_sphere(rt, (t_sphere *) rt->obj[i].obj);
                 figure_color(rt, &rt->mat[i]);

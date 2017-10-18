@@ -27,7 +27,18 @@ int     ft_keys(int id, t_rt *r)
     (id == 123) ? r->cam.horizontal -= 0.1 : 0;
     (id == 126) ? r->cam.vertical += 0.1 : 0;
     (id == 125) ? r->cam.vertical -= 0.1 : 0;
+    if (id == 88)
+    {
+        r->ray.ax += 10;
+        r->ray.ay += 2;
 
+    }
+    if (id == 88)
+    {
+        r->ray.ax -= 10;
+        r->ray.ay -= 2;
+
+    }
     tracer(r);
     printf("key id == %d\n", id);
     return (0);

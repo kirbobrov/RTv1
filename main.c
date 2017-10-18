@@ -17,19 +17,17 @@ void    init_material(t_rt *rt)
     rt->mat[0].diffuse.red = 1;
     rt->mat[0].diffuse.green = 0.3;
     rt->mat[0].diffuse.blue = 0;
-//  rt->mat.diffuse.a = 1;
     rt->mat[0].reflection = 0.2;
 
     rt->mat[2].diffuse.red = 0.3;
     rt->mat[2].diffuse.green = 0.7;
     rt->mat[2].diffuse.blue = 0.2;
-//  rt->mat.diffuse.a = 1;
     rt->mat[2].reflection = 0.2;
 
     rt->mat[1].diffuse.red = 0;
     rt->mat[1].diffuse.green = 0.3;
     rt->mat[1].diffuse.blue = 1;
-    rt->mat[1].reflection = 0.2;   ///blue
+    rt->mat[1].reflection = 0.2;
 
     rt->mat[3].diffuse.red = 0.5;
     rt->mat[3].diffuse.green = 0.4;
@@ -42,6 +40,10 @@ void    init_material(t_rt *rt)
     rt->mat[5].diffuse.red = 0.5;
     rt->mat[5].diffuse.green = 0.3;
     rt->mat[5].diffuse.blue = 0.1;
+
+    rt->ray.ax = 0;
+    rt->ray.ay = 0;
+    rt->ray.az = 0;
 }
 
 void    init_figure(t_rt *rt)
@@ -55,13 +57,21 @@ void    init_figure(t_rt *rt)
 	rt->ray.dir.y = 0;
 	rt->ray.dir.z = 1;
 
-    rt->light.pos.x = -1800;
-    rt->light.pos.y = 300;
-    rt->light.pos.z = -2000;
+    rt->light[0].pos.x = -1800;
+    rt->light[0].pos.y = 300;
+    rt->light[0].pos.z = -2000;
 
-    rt->light.intensity.red = 1;
-    rt->light.intensity.green = 1;
-    rt->light.intensity.blue = 1;
+    rt->light[0].intensity.red = 1;
+    rt->light[0].intensity.green = 1;
+    rt->light[0].intensity.blue = 1;
+
+    rt->light[1].pos.x = 1800;
+    rt->light[1].pos.y = 300;
+    rt->light[1].pos.z = -2000;
+
+    rt->light[1].intensity.red = 0.8;
+    rt->light[1].intensity.green = 0.8;
+    rt->light[1].intensity.blue = 0.8;
 
     rt->sph0 = malloc(sizeof(t_sphere));
 
@@ -115,7 +125,7 @@ void    init_figure(t_rt *rt)
     rt->con->dir.z = 0.2;
     rt->con->dir = vector_normalize(&rt->con->dir);
 
-    rt->con->a = (double) (15 * M_PI / 180);
+    rt->con->a = (15 * M_PI / 180);
     rt->con->material = 5;
     rt->obj[4].id = CONUS;
     rt->obj[4].obj = (void *)rt->con;
@@ -126,14 +136,28 @@ void    init_figure(t_rt *rt)
     rt->pl->pos.y = 0;
     rt->pl->pos.z = 500;
 
-    rt->pl->dir.x = 0;
+    rt->pl->dir.x = -0.1;
     rt->pl->dir.y = 0;
-    rt->pl->dir.z = -1;
+    rt->pl->dir.z = -0.3;
     rt->pl->dir = vector_normalize(&rt->pl->dir);
 
     rt->pl->material = 4;
     rt->obj[5].id = PLANE;
     rt->obj[5].obj = (void *)rt->pl;
+
+//    rt->pl1 = malloc(sizeof(t_plane));
+//    rt->pl1->pos.x = 500;
+//    rt->pl1->pos.y = 0;
+//    rt->pl1->pos.z = 0;
+//
+//    rt->pl1->dir.x = 0;
+//    rt->pl1->dir.y = -0.8;
+//    rt->pl1->dir.z = -0.2;
+//    rt->pl1->dir = vector_normalize(&rt->pl1->dir);
+//
+//    rt->pl1->material = 1;
+//    rt->obj[6].id = PLANE;
+//    rt->obj[6].obj = (void *)rt->pl1;
 }
 
 int		main(void)
@@ -147,9 +171,6 @@ int		main(void)
 
     tracer(&r);
 
-	///mlx_hook(r.mx.win, 2, 5, my_key, &r);
-//	ft_put_image(r.mx.mlx);
-///// mlx_loop_hook(r.mx.mlx, ft_sphere, &r);
     mlx_hook(r.mx.win, 17, 0L, ft_mouse_exit, &r);
     mlx_hook(r.mx.win, 2, 5, ft_keys, &r);
     mlx_loop(r.mx.mlx);

@@ -12,19 +12,6 @@
 
 #include "rtv.h"
 
-//double        vector_cos(t_vector *v1, t_vector *v2)
-//{
-//    double    a;
-//    double    b;
-//    double    c;
-//    double    cos;
-//
-//    a = vector_dot(v1, v2);
-//    b = vector_dot(v1, v1);
-//    c = vector_dot(v2, v2);
-//    cos = a / (b * c);
-//    return (cos);
-//}
 t_vector vector_sub(t_vector *v1, t_vector *v2)
 {
     t_vector result;
@@ -45,9 +32,6 @@ t_vector    cross_product(t_vector *v1, t_vector *v2)
     return (v);
 }
 
-
-
-
 t_vector vector_add(t_vector *v1, t_vector *v2)
 {
     t_vector result;
@@ -57,7 +41,6 @@ t_vector vector_add(t_vector *v1, t_vector *v2)
     return (result);
 }
 
-/* Multiply two vectors and return the resulting scalar (dot product) */
 double vector_dot(t_vector *v1, t_vector *v2)
 {
     return (v1->x * v2->x + v1->y * v2->y + v1->z * v2->z);
@@ -118,28 +101,19 @@ t_vector    vector_mult(t_vector *v1, t_vector *v2)
     return(mult);
 }
 
-double   ft_sqrtp(double a ,double b ,double c)
+int   discr(t_vector *abc, t_ray *r)
 {
-    double   d;
-    double   x;
-    double   x1;
+    double   discr;
     double   x2;
 
-    d = b * b - 4 * a * c;
-    if (d == 0)
-    {
-        x = b / (2 * a);
-        return (x);
-    }
-    else if (d > 0)
-    {
-        x1 = (-b + sqrt(d)) / (2 * a);
-        x2 = (-b - sqrt(d)) / (2 * a);
-        if (x1 < x2)
-            return (x1);
-        else
-            return (x2);
-    }
-    else
+    discr = abc->y * abc->y - 4 * abc->x * abc->z;
+    if (discr < 0)
         return (0);
+    x2 = (-abc->y - sqrt(discr)) / (2 * abc->x);
+    if (x2 > 0.00001 && x2 < r->dist)
+    {
+        r->dist = x2;
+        return (1);
+    }
+    return (0);
 }

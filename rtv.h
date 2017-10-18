@@ -42,7 +42,8 @@
 //    double   b;
 //    double   c;
 //}               t_equation;
-typedef struct  s_camera
+
+typedef struct      s_camera
 {
     double      invwidth;
     double      invheight;
@@ -50,132 +51,126 @@ typedef struct  s_camera
     double      angle;
     double      vertical;
     double      horizontal;
+    double      a0;
+}                   t_camera;
 
-}               t_camera;
-
-typedef struct	s_vector
+typedef struct      s_vector
 {
-	double		x;
-	double		y;
-	double		z;
-}				t_vector;
+	double      x;
+	double      y;
+	double      z;
+}                   t_vector;
 
-typedef struct  s_color ////color definithion
+typedef struct      s_color ////color definithion
 {
     double      red;
     double      green;
-    double       blue;
-    double       a;
-}               t_color;
+    double      blue;
+    double      a;
+}                   t_color;
 
-typedef struct	s_sphere
+typedef struct      s_sphere
 {
-	t_vector	pos;    ///centre
-	double		radius;
+	t_vector    pos;    ///centre
+	double      radius;
     int         material;
     int         id;
     t_vector    hit_point;
 
-}				t_sphere;
+}                   t_sphere;
 
-typedef struct  s_cylinder
+typedef struct      s_cylinder
 {
-    t_vector	pos;    ///centre
+    t_vector    pos;    ///centre
     t_vector    dir;
     t_vector    hit_point;
-    double		radius;
+    double      radius;
     int         material;
     int         id;
-}               t_cylinder;
+}                   t_cylinder;
 
-typedef struct  s_plane
+typedef struct      s_plane
 {
     t_vector    dir;
     t_vector    pos;
     int         id;
     int         material;
-}               t_plane;
+}                   t_plane;
 
-typedef struct  s_cone
+typedef struct      s_cone
 {
     t_vector    pos;
     t_vector    dir;
-    double         a;
+    double      a;
     t_vector    hit_point;
-
     int         material;
     int         id;
-}               t_cone;
+}                   t_cone;
 
-
-typedef struct	s_ray
+typedef struct      s_ray
 {
-	t_vector	start;  //// start vector
-	t_vector	dir;    /// direction vector
+	t_vector    start;  //// start vector
+	t_vector    dir;    /// direction vector
     t_vector    normdir; /// normalize direction vector
     t_vector    hit_point;
     t_vector    normal;
-    double       dist;      ///distantion
-}				t_ray;
+    double      dist;      ///distantion
 
-typedef struct  s_light /// light defenition
+    double      ax;
+    double      ay;
+    double      az;
+}                   t_ray;
+
+typedef struct      s_light /// light defenition
 {
-    t_vector pos;
-    t_color intensity;
-}               t_light;
+    t_vector    pos;
+    t_color     intensity;
+}                   t_light;
 
-typedef struct  s_material  //// Material definition
+typedef struct      s_material  //// Material definition
 {
     t_color     diffuse;
-    double       reflection;
-}               t_material;
+    double      reflection;
+}                   t_material;
 
-typedef struct	s_mlx
+typedef struct      s_mlx
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
-	char		*buf;
-	int			bpp;
-	int			endl;
-	int			sizel;
-}				t_mlx;
+	void        *mlx;
+	void        *win;
+	void        *img;
+	char        *buf;
+	int         bpp;
+	int         endl;
+	int         sizel;
+}                   t_mlx;
 
-typedef struct  s_object
+typedef struct      s_object
 {
     int         id;
     void        *obj;
-}               t_object;
+}                   t_object;
 
-typedef struct	s_rt
+typedef struct      s_rt
 {
-	t_mlx		mx;     ///mlx
-	t_vector	vec;    ///vector
-
+	t_mlx       mx;     ///mlx
+	t_vector    vec;    ///vector
     t_sphere    *sph0;
     t_sphere    *sph1;
     t_sphere    *sph2;
     t_cylinder  *cyl;
     t_plane     *pl;
+    t_plane     *pl1;
     t_cone      *con;
-    t_ray		ray;
+    t_ray       ray;
 
     t_camera    cam;
 
     t_color     col;    ///color
-    t_light     light;
+    t_light     light[2];
     t_material  mat[6];
     t_object    obj[6];
 
-//    int         hit;
-//    int         hit2;
-
-    int     id;
-
-  ///  double         xx;      /// current x
-  ///  double         yy;      /// current y
-
-
+///    int     id;
 }				t_rt;
 
 void        ft_imageinit(t_mlx *mx);
@@ -204,7 +199,7 @@ t_vector    cross_product(t_vector *v1, t_vector *v2);
 
 
 int            intersection(t_rt *rt);
-int             intersection_sphere(t_ray *r, t_sphere *s, t_rt *rt);
+int             intersection_sphere(t_ray *r, t_sphere *s);
 void            normale_sphere(t_rt *rt, t_sphere *sph);
 int             intersection_cylinder(t_ray *r, t_cylinder *c, t_rt *rt);
 t_vector        normale_cylinder(t_ray *ray, t_cylinder *cyl);
@@ -218,5 +213,13 @@ t_vector        normale_cone(t_ray *ray, t_cone *cn);
 
 void    cam_init(t_camera *cam);
 void    camera(t_rt *rt, int x, int y);
+
+int   discr(t_vector *abc, t_ray *r);
+
+
+void	ft_rotate(t_rt *rt);
+void	ft_matrx(t_rt *rt);
+void	ft_matry(t_rt *rt);
+void	ft_matrz(t_rt *rt);
 
 #endif

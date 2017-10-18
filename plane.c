@@ -10,12 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by Kyrylo Bobrov on 9/28/17.
-//
-
 #include "rtv.h"
-
 
 int intersection_plane(t_ray *ray, t_plane *pl, t_rt *rt)
 {
@@ -23,9 +18,7 @@ int intersection_plane(t_ray *ray, t_plane *pl, t_rt *rt)
     double        dotn;
     t_vector        temp;
     double        t;
- ///   pl->dir = vector_normalize(&pl->dir);
 
-   /// ray->hit_point = (t_vector) {0, 0, 0};
     dotn = vector_dot(&pl->dir, &ray->dir);
     if (fabs(dotn) > 0.001)
     {
@@ -45,32 +38,3 @@ int intersection_plane(t_ray *ray, t_plane *pl, t_rt *rt)
     }
     return (0);
 }
-
-
-/*
-
-  int            inter_plane(t_vec ray_o, t_vec ray_d, t_all *all)
-{
-    t_vec    math;
-    double    denom;
-    double    result;
-
-    math = vec_sub(all->plane.position, ray_o);
-    denom = dot(ray_d, all->plane.normal);
-    if (fabs(denom) < 1e-6)
-        return (-1);
-    else
-    {
-        result = dot(math, all->plane.normal) / denom;
-        all->plane.t = result;
-        if (result < 0)
-            return (-1);
-        if (all->plane.t >= 0)
-            return (1);
-        else
-            return (-1);
-    }
-    return (-1);
-}
-
- */

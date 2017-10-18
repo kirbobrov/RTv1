@@ -15,51 +15,54 @@
 
 int     intersection_cone(t_ray *r, t_cone *c, t_rt *rt)
 {
-    double   A;
-    double   B;
-    double   C;
+//    double   A;
+//    double   B;
+//    double   C;
 
-        double		dot[2];
-        t_vector	mult[2];
-        t_vector	sub[2];
-        t_vector	dp;
+    t_vector    abc;
+    double		dot[2];
+    t_vector	mult[2];
+    t_vector	sub[2];
+    t_vector	dp;
 
-        double sqc;
-        double sqs;
+    double sqc;
+    double sqs;
 
-        sqc = cos(c->a) * cos(c->a);
-        sqs = sin(c->a) * sin(c->a);
+    sqc = cos(c->a) * cos(c->a);
+    sqs = sin(c->a) * sin(c->a);
 
-        dp = vector_sub(&r->start, &c->pos);
-        dot[0] = vector_dot(&r->dir, &c->dir);
-        mult[0] = vector_scale(dot[0], &c->dir);
-        sub[0] = vector_sub(&r->dir, &mult[0]);
-        dot[1] = vector_dot(&dp, &c->dir);
-        mult[1] = vector_scale(dot[1], &c->dir);
-        sub[1] = vector_sub(&dp, &mult[1]);
-        A = sqc * vector_dot(&sub[0], &sub[0]);
-        A -= sqs * dot[0] * dot[0];
-        B = 2 * sqc * vector_dot(&sub[0], &sub[1]);
-        B -= 2 * sqs * dot[0] * dot[1];
-        C = sqc * vector_dot(&sub[1], &sub[1]);
-        C -= sqs * dot[1] * dot[1];
+    dp = vector_sub(&r->start, &c->pos);
+    dot[0] = vector_dot(&r->dir, &c->dir);
+    mult[0] = vector_scale(dot[0], &c->dir);
+    sub[0] = vector_sub(&r->dir, &mult[0]);
+    dot[1] = vector_dot(&dp, &c->dir);
+    mult[1] = vector_scale(dot[1], &c->dir);
+    sub[1] = vector_sub(&dp, &mult[1]);
+    abc.x = sqc * vector_dot(&sub[0], &sub[0]);
+    abc.x -= sqs * dot[0] * dot[0];
+    abc.y = 2 * sqc * vector_dot(&sub[0], &sub[1]);
+    abc.y -= 2 * sqs * dot[0] * dot[1];
+    abc.z = sqc * vector_dot(&sub[1], &sub[1]);
+    abc.z -= sqs * dot[1] * dot[1];
 
-
-    double discr;
-
-    discr = B * B - 4 * A * C;
-
-    if (discr < 0)
-        return (0);
-   /// double x1 = (-B + sqrt(discr)) / (2 * A);
-    double x2 = (-B - sqrt(discr)) / (2 * A);
-
-    if (x2 > 0.00001 && x2 < r->dist)
-    {
-        r->dist = x2;
-        return (1);
-    }
+    if (discr(&abc, r))
+        return(1);
     return (0);
+
+//    double discr;
+//    discr = B * B - 4 * A * C;
+//
+//    if (discr < 0)
+//        return (0);
+//   /// double x1 = (-B + sqrt(discr)) / (2 * A);
+//    double x2 = (-B - sqrt(discr)) / (2 * A);
+//
+//    if (x2 > 0.00001 && x2 < r->dist)
+//    {
+//        r->dist = x2;
+//        return (1);
+//    }
+//    return (0);
 }
 
 t_vector        normale_cone(t_ray *ray, t_cone *cn)
