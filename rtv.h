@@ -67,6 +67,7 @@ typedef struct      s_color ////color definithion
     double      green;
     double      blue;
     double      a;
+    int         shadow;
 }                   t_color;
 
 typedef struct      s_sphere
@@ -109,25 +110,27 @@ typedef struct      s_cone
 
 typedef struct      s_ray
 {
-	t_vector    start;  //// start vector
-	t_vector    dir;    /// direction vector
-    t_vector    normdir; /// normalize direction vector
+	t_vector    start;
+    t_vector    start0;
+	t_vector    dir;
+    t_vector    dir0;
+   /// t_vector    normdir; /// normalize direction vector
     t_vector    hit_point;
     t_vector    normal;
-    double      dist;      ///distantion
+    double      dist;
 
     double      ax;
     double      ay;
     double      az;
 }                   t_ray;
 
-typedef struct      s_light /// light defenition
+typedef struct      s_light
 {
     t_vector    pos;
     t_color     intensity;
 }                   t_light;
 
-typedef struct      s_material  //// Material definition
+typedef struct      s_material
 {
     t_color     diffuse;
     double      reflection;
@@ -163,11 +166,16 @@ typedef struct      s_rt
     t_cone      *con;
     t_ray       ray;
 
+    double      lambert;
+
     t_camera    cam;
 
     t_color     col;    ///color
+    t_color     col0;
     t_light     light[2];
+    t_light     current_light;
     t_material  mat[6];
+    t_material  cur_material;
     t_object    obj[6];
 
 ///    int     id;
@@ -200,7 +208,7 @@ t_vector    cross_product(t_vector *v1, t_vector *v2);
 
 int            intersection(t_rt *rt);
 int             intersection_sphere(t_ray *r, t_sphere *s);
-void            normale_sphere(t_rt *rt, t_sphere *sph);
+t_vector            normale_sphere(t_rt *rt, t_sphere *sph);
 int             intersection_cylinder(t_ray *r, t_cylinder *c, t_rt *rt);
 t_vector        normale_cylinder(t_ray *ray, t_cylinder *cyl);
 int             intersection_plane(t_ray *ray, t_plane *pl, t_rt *rt);
@@ -221,5 +229,8 @@ void	ft_rotate(t_rt *rt);
 void	ft_matrx(t_rt *rt);
 void	ft_matry(t_rt *rt);
 void	ft_matrz(t_rt *rt);
+
+
+void    lambert(t_rt *rt, t_ray *light);
 
 #endif

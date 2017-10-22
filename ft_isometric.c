@@ -45,55 +45,7 @@ void	ft_matrz(t_rt *rt)
 
 void	ft_rotate(t_rt *rt)
 {
-			ft_matrz(rt);
 			ft_matrx(rt);
 			ft_matry(rt);
+			ft_matrz(rt);
 }
-
-//void	ft_begin_point(t_fdf *s)
-//{
-//	int y;
-//	int x;
-//
-//	y = 0;
-//	while (y < s->ymax)
-//	{
-//		x = 0;
-//		while (x < s->xmax)
-//		{
-//			s->pt[y][x].x = s->pt[y][x].x0;
-//			s->pt[y][x].y = s->pt[y][x].y0;
-//			s->pt[y][x].z = s->pt[y][x].z0;
-//			x++;
-//		}
-//		y++;
-//	}
-//}
-
-//void	ft_isometric(t_fdf *s)
-//{
-//	int	x;
-//	int	y;
-//
-//	y = 0;
-//	s->xa = s->xa0;
-//	s->ya = s->ya0;
-//	s->za = s->za0;
-//	ft_begin_point(s);
-//	while (y < s->ymax)
-//	{
-//		x = 0;
-//		while (x < s->xmax)
-//		{
-//			ft_matrz(s, &s->pt[y][x]);
-//			ft_matrx(s, &s->pt[y][x]);
-//			ft_matry(s, &s->pt[y][x]);
-//			x++;
-//		}
-//		y++;
-//	}
-//}
-
-
-
-

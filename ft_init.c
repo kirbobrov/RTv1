@@ -42,9 +42,9 @@ void	ft_img_color(t_rt *rt, int x, int y)
         pix = y * rt->mx.sizel + (x * 4);
         if (pix < SIZE_Y * SIZE_X * 4)
         {
-            rt->mx.buf[pix] = rt->col.blue;
-            rt->mx.buf[pix + 1] = rt->col.green;
-            rt->mx.buf[pix + 2] = rt->col.red;
+            rt->mx.buf[pix] = (unsigned char) fmin(rt->col0.blue * 255, 255);
+            rt->mx.buf[pix + 1] = (unsigned char) fmin(rt->col0.green * 255, 255);
+            rt->mx.buf[pix + 2] = (unsigned char) fmin(rt->col0.red * 255, 255);
         }
     }
 }

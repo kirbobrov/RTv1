@@ -49,13 +49,13 @@ void    init_material(t_rt *rt)
 void    init_figure(t_rt *rt)
 {
 
-    rt->ray.start.x = 0;
-    rt->ray.start.y = 0;
-    rt->ray.start.z = -250;
+    rt->ray.start0.x = 0;
+    rt->ray.start0.y = 0;
+    rt->ray.start0.z = -350;
 
-	rt->ray.dir.x = 0;
-	rt->ray.dir.y = 0;
-	rt->ray.dir.z = 1;
+	rt->ray.dir0.x = 0;
+	rt->ray.dir0.y = 0;
+	rt->ray.dir0.z = 1;
 
     rt->light[0].pos.x = -1800;
     rt->light[0].pos.y = 300;
@@ -69,9 +69,9 @@ void    init_figure(t_rt *rt)
     rt->light[1].pos.y = 300;
     rt->light[1].pos.z = -2000;
 
-    rt->light[1].intensity.red = 0.8;
-    rt->light[1].intensity.green = 0.8;
-    rt->light[1].intensity.blue = 0.8;
+    rt->light[1].intensity.red = 1;
+    rt->light[1].intensity.green = 1;
+    rt->light[1].intensity.blue = 1;
 
     rt->sph0 = malloc(sizeof(t_sphere));
 

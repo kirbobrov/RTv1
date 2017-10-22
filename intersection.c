@@ -32,14 +32,16 @@ int    intersection(t_rt *rt)
             {
                 rt->ray.normal = normale_cone(&rt->ray, (t_cone *) rt->obj[i].obj);
                 figure_color(rt, &rt->mat[rt->con->material]);
+           ///     rt->cur_material = rt->mat[rt->con->material];
             }
          }
         else if (rt->obj[i].id == SPHERE)
         {
             if (intersection_sphere(&rt->ray, (t_sphere *) rt->obj[i].obj))
             {
-                normale_sphere(rt, (t_sphere *) rt->obj[i].obj);
+                rt->ray.normal = normale_sphere(rt, (t_sphere *) rt->obj[i].obj);
                 figure_color(rt, &rt->mat[i]);
+             ///   rt->cur_material = rt->mat[rt->con->material];
             }
         }
         else if (rt->obj[i].id == CYLINDER)
@@ -48,6 +50,7 @@ int    intersection(t_rt *rt)
             {
                 rt->ray.normal = normale_cylinder(&rt->ray, (t_cylinder *) rt->obj[i].obj);
                 figure_color(rt, &rt->mat[rt->cyl->material]);
+              ///  rt->cur_material = rt->mat[rt->con->material];
             }
         }
         else if (rt->obj[i].id == PLANE)
@@ -57,8 +60,14 @@ int    intersection(t_rt *rt)
                 rt->ray.normal = plane_normale((t_plane *) rt->obj[i].obj , &rt->ray);
                 rt->ray.normal = vector_normalize(&rt->ray.normal);
                 figure_color(rt, &rt->mat[rt->pl->material]);
+             ///   rt->cur_material = rt->mat[rt->con->material];
             }
         }
+        double temp;
+        temp = 0;
+        temp = vector_dot(&rt->ray.normal, &rt->ray.normal);
+        if (temp < 0)
+            return (0);
     }
     if (rt->ray.dist != 2000001)
         return (1);

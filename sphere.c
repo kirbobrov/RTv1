@@ -13,17 +13,16 @@
 
 #include "rtv.h"
 
-void    normale_sphere(t_rt *rt, t_sphere *sph)
+t_vector    normale_sphere(t_rt *rt, t_sphere *sph)
 {
-    t_vector scaled;
+    t_vector    scaled;
+    t_vector    normale;
 
     scaled = vector_scale(rt->ray.dist, &rt->ray.dir);
-
     rt->ray.hit_point = vector_add(&rt->ray.start, &scaled);
-    rt->ray.normal = vector_sub(&rt->ray.hit_point, &sph->pos);
-    rt->ray.normal = vector_normalize(&rt->ray.normal);
+    normale = vector_sub(&rt->ray.hit_point, &sph->pos);
+    return (vector_normalize(&normale));
 }
-
 
 int intersection_sphere(t_ray *r, t_sphere *s)
 {
