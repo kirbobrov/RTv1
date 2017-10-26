@@ -18,7 +18,7 @@ void	ft_put_image(t_mlx *mx)
 	mlx_destroy_image(mx->mlx, mx->img);
 }
 
-void ft_mlxinit(t_mlx *mx)
+void	ft_mlxinit(t_mlx *mx)
 {
 	mx->mlx = mlx_init();
 	mx->win = mlx_new_window(mx->mlx, SIZE_X, SIZE_Y, "RTv1 by kbobrov");
@@ -35,16 +35,17 @@ void	ft_imageinit(t_mlx *mx)
 
 void	ft_img_color(t_rt *rt, int x, int y)
 {
-    int pix;
+	int	pix;
 
-    if (y >= 0 && x >= 0 && y < SIZE_Y && x < SIZE_X)
-    {
-        pix = y * rt->mx.sizel + (x * 4);
-        if (pix < SIZE_Y * SIZE_X * 4)
-        {
-            rt->mx.buf[pix] = (unsigned char) fmin(rt->col0.blue * 255, 255);
-            rt->mx.buf[pix + 1] = (unsigned char) fmin(rt->col0.green * 255, 255);
-            rt->mx.buf[pix + 2] = (unsigned char) fmin(rt->col0.red * 255, 255);
-        }
-    }
+	if (y >= 0 && x >= 0 && y < SIZE_Y && x < SIZE_X)
+	{
+		pix = y * rt->mx.sizel + (x * 4);
+		if (pix < SIZE_Y * SIZE_X * 4)
+		{
+			rt->mx.buf[pix] = (unsigned char)fmin(rt->col0.blue * 255, 255);
+			rt->mx.buf[pix + 1] =
+			(unsigned char)fmin(rt->col0.green * 255, 255);
+			rt->mx.buf[pix + 2] = (unsigned char)fmin(rt->col0.red * 255, 255);
+		}
+	}
 }
